@@ -16,11 +16,7 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-<<<<<<< Updated upstream
           <h1>Get started</h1>
-=======
-          <h1> Get started</h1>
->>>>>>> Stashed changes
           <p>
             Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
