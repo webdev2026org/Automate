@@ -17,6 +17,7 @@ function App() {
         </div>
         <div>
           <h1>Testing Github Actions Automation</h1>
+          <h1>To reflect change in main branch</h1>
           <p>
             Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
