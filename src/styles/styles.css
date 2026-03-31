@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+:root{
+    @apply m-0 p-0 box-border;
+}
+
+.Navbar {
+  @apply flex items-center justify-between px-6 py-4 bg-gray-50 text-black;
+}
+
+.Left-Navbar-Section {
+    @apply flex items-center gap-x-12;
+}
+/* 🔹 Logo */
+.Navbar-logo {
+  @apply flex items-center gap-2 text-2xl font-bold;
+}
+
+/* 🔹 Navigation links */
+.Navbar-links {
+  @apply flex gap-6;
+}
+.Navbar-link {
+  @apply hover:text-blue-400 transition-colors;
+}
+
+/* 🔹 Search bar */
+.Navbar-Search {
+  @apply flex items-center bg-gray-100 outline-1 rounded px-3 py-1;
+}
+.Navbar-Search input {
+  @apply text-gray-400 outline-none px-2;
+}
+.Navbar-Search-icon {
+  @apply text-gray-900;
+}
+
+/* 🔹 Icons (user + cart) */
+.Navbar-icons {
+  @apply flex items-center gap-4 ml-6;
+}
+.Navbar-icon {
+  @apply text-gray-900 hover:text-blue-400 transition;
+}
