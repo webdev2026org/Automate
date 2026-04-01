@@ -5,7 +5,7 @@ const Navbar = (props) => {
     return (
         <nav className='Navbar'>
 
-            <div className="Left-Navbar-Section pl-10 flex items-center">
+            <div className="Left-Navbar-Section flex items-center">
                 {/* Logo */}
                 <div className='Navbar-logo'>
                     {props.pageIcon === 'store' && <FaStore />}
@@ -28,7 +28,7 @@ const Navbar = (props) => {
 
             </div>
 
-            <div className="Right-Navbar-Section pr-10">
+            <div className="Right-Navbar-Section">
                 {/* Search + Icons */}
                 <div className='flex items-center'>
                     {props.showSearchBar && (<div className='Navbar-Search'>
