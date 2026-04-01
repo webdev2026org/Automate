@@ -1,9 +1,6 @@
 import Navbar from "../global/Navbar"
 import Footer from "../global/Footer"
 
-import Navbar from "../global/Navbar"
-import Footer from "../global/Footer"
-
 
 function Login() {
   return (
