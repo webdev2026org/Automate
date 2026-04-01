@@ -1,4 +1,5 @@
 import Navbar from '../global/Navbar'
+import SubNavbar from '../global/SubNavbar'
 import Footer from '../global/Footer'  
 
 
@@ -14,6 +15,7 @@ const ProductListViewScreen = () => {
    showCartIcon={true}
    userIconType='user-icon'
    />
+   <SubNavbar/>
     <main className='container mx-auto px-4 py-8'> main container of List view</main>
    <Footer/>
     </div>
