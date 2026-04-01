@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+html,body, #root {
+    @apply m-0 p-0 box-border;
+    height: 100%;
+    width: 100%;
+}
+
 :root{
     @apply m-0 p-0 box-border;
 }
@@ -11,12 +17,11 @@
 .Left-Navbar-Section {
     @apply flex items-center gap-x-12;
 }
-/* 🔹 Logo */
+
 .Navbar-logo {
   @apply flex items-center gap-2 text-2xl font-bold;
 }
 
-/* 🔹 Navigation links */
 .Navbar-links {
   @apply flex gap-6;
 }
@@ -24,7 +29,6 @@
   @apply hover:text-blue-400 transition-colors;
 }
 
-/* 🔹 Search bar */
 .Navbar-Search {
   @apply flex items-center bg-gray-100 outline-1 rounded px-3 py-1;
 }
@@ -35,10 +39,46 @@
   @apply text-gray-900;
 }
 
-/* 🔹 Icons (user + cart) */
 .Navbar-icons {
   @apply flex items-center gap-4 ml-6;
 }
 .Navbar-icon {
   @apply text-gray-900 hover:text-blue-400 transition;
+}
+
+
+
+.Footer {
+  @apply border-t bg-gray-50 text-black px-8 py-10;
+}
+
+.Footer-top {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-8;
+}
+
+.Footer-logo {
+  @apply text-black font-bold text-lg;
+}
+.Footer-description {
+  @apply text-sm mt-2;
+}
+
+.Footer-company {
+  @apply flex flex-col;
+}
+.Footer-company ul {
+  @apply space-y-2;
+} 
+.Footer-company a {
+  @apply hover:text-blue-400 transition-colors;
+}
+
+.Footer-support {
+  @apply flex flex-col;
+}
+.Footer-support ul {
+  @apply space-y-2;
+}
+.Footer-support a {
+  @apply hover:text-blue-400 transition-colors;
 }
