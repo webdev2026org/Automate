@@ -10,6 +10,7 @@ function Login() {
    showmenuOtions={false}
    breadcrumbItems={[]}
    showCartIcon={false}
+   showLoginBtn={true}
    />
     <main className='container mx-auto px-4 py-8'> Login Page</main>
    <Footer/>
