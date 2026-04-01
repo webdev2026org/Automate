@@ -6,10 +6,6 @@ html,body, #root {
     width: 100%;
 }
 
-:root{
-    @apply m-0 p-0 box-border;
-}
-
 .Navbar {
   @apply flex items-center justify-between px-6 py-4 bg-gray-50 text-black;
 }
