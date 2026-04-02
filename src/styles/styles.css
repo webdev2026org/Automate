@@ -21,8 +21,8 @@ html,body, #root {
 .Navbar-links {
   @apply flex gap-6 text-black;
 }
-.Navbar-link {
-  @apply hover:text-blue-400 transition-colors;
+.Navbar-link, .Breadcrumb-link {
+  @apply hover:underline transition-all;
 }
 
 .Navbar-Search {
