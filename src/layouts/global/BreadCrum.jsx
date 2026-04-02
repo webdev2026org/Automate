@@ -15,9 +15,11 @@ const Breadcrumb = ({ items = [], separator = " / " }) => {
                 {item.label}
               </span>
             ) : (
-              <Link to={item.path}>
+                <span className="Breadcrumb-link">
+              <Link  to={item.path}>
                 {item.label}
               </Link>
+              </span>
             )}
           </span>
         );

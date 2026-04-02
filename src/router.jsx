@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import ProductListViewScreen from "./layouts/productLists/ProductListViewScreen";
 import Login from "./layouts/loginSignUp/Login";
 import SignUp from "./layouts/loginSignUp/SignUp";
+import ShoppingCartViewScreen from "./layouts/ShoppingCart/ShoppingCartViewScreen";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     {
         path: '/products',
         element: <ProductListViewScreen />
+    },
+     {
+        path: '/cart',
+        element: <ShoppingCartViewScreen />
     },
     ]);
 
