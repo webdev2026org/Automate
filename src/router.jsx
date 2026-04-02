@@ -19,6 +19,10 @@ const router = createBrowserRouter([
     element: <ProtectedLayout />,
     children: [
       {
+        path: "/",
+        element: <ProductListViewScreen />,
+      },
+      {
         path: "/products",
         element: <ProductListViewScreen />,
       },
