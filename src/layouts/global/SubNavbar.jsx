@@ -1,3 +1,4 @@
+import Dropdown from "../global/Dropdown";
 
 const SubNavbar = () => {
   return (
@@ -14,13 +15,13 @@ const SubNavbar = () => {
         <div class="textSize">
           <span>Text size</span>
           <label>
-            <input type="radio" name="textSize" value="S" />S
+            <input type="radio" className="w-4 h-4" name="textSize" value="S" />S
           </label>
           <label>
-            <input type="radio" name="textSize" value="M" />M
+            <input type="radio" className="w-4 h-4" name="textSize" value="M" />M
           </label>
           <label>
-            <input type="radio" name="textSize" value="L" />L
+            <input type="radio" className="w-4 h-4" name="textSize" value="L" />L
           </label>
         </div>
       </div>
@@ -28,12 +29,12 @@ const SubNavbar = () => {
       {/* Sort By */}
 
       <div className="sortBy">
-        <label for="sort">Sort by</label>
-        <select id="sort">
-          <option value="relevance">Relevance</option>
-          <option value="date">Date</option>
-          <option value="popularity">Popularity</option>
-        </select>
+        <Dropdown
+          label="Sort by"
+          options={["Relevance", "Date", "Popularity"]}
+          defaultValue="Popularity"
+          onChange={(value) => console.log("Selected:", value)}
+        />
       </div>
     </nav>
   );
