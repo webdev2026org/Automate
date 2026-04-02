@@ -9,7 +9,7 @@ const ProductListViewScreen = () => {
         <Navbar
           pageIcon="store"
           showSearchBar={true}
-          showmenuOtions={false}
+          showmenuOtions={true}
           breadcrumbItems={[]}
           showCartIcon={true}
           userIconType="user-icon"

@@ -11,13 +11,11 @@ const Breadcrumb = ({ items = [], separator = " / " }) => {
             {index !== 0 && separator}
 
             {isLast ? (
-              <span style={{ fontWeight: "bold" }}>
-                {item.label}
-              </span>
+              <span style={{ fontWeight: "bold" }}>{item.label}</span>
             ) : (
-              <Link to={item.path}>
-                {item.label}
-              </Link>
+              <span className="Breadcrumb-link">
+                <Link to={item.path}>{item.label}</Link>
+              </span>
             )}
           </span>
         );

@@ -21,8 +21,8 @@ html,body, #root {
 .Navbar-links {
   @apply flex gap-6 text-black;
 }
-.Navbar-link {
-  @apply hover:text-blue-400 transition-colors;
+.Navbar-link, .Breadcrumb-link {
+  @apply hover:underline transition-all;
 }
 
 .Navbar-Search {
@@ -39,7 +39,7 @@ html,body, #root {
   @apply flex items-center gap-4 ml-6;
 }
 .Navbar-icon {
-  @apply text-gray-900 hover:text-blue-400 transition;
+  @apply text-gray-900 hover:text-black transition;
 }
 
 /* Sub Navbar Container */
@@ -60,7 +60,7 @@ html,body, #root {
 }
 
 .btnView.active {
-  @apply bg-blue-500 text-gray-700 border-blue-500;
+  @apply bg-black text-white border-black;
 }
 
 .textSize {
@@ -76,7 +76,7 @@ html,body, #root {
 }
 
 .textSize input[type="radio"] {
-  @apply accent-blue-500;
+  @apply accent-black;
 }
 
 .sortBy {
@@ -88,8 +88,9 @@ html,body, #root {
 }
 
 .sortBy select {
-  @apply border border-gray-400 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500;
+  @apply border border-gray-400 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300;
 }
+
 
 /* Footer Container */
 .Footer {
