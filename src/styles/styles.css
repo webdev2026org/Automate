@@ -127,3 +127,20 @@ html,body, #root {
 .Footer-support a {
   @apply hover:text-blue-400 transition-colors;
 }
+
+/* Logged Out Footer */
+.Logged-out-footer {
+  @apply flex items-center justify-between gap-8 px-12;
+}
+.Footer-links {
+  @apply flex items-center gap-4;
+}
+.Footer-links span {
+  @apply font-bold text-xl;
+}
+.Footer-social-links {
+  @apply flex gap-10 text-gray-400;
+}
+.Footer-copy{
+  @apply text-gray-400;
+}
