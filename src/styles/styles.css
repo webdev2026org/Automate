@@ -144,3 +144,15 @@ html,body, #root {
 .Footer-copy{
   @apply text-gray-400;
 }
+
+/* Logged Out Hero Section */
+.Login-heroSection {
+  @apply flex items-center justify-between;
+}
+
+.Login-bottomSection {
+  @apply w-2/3 flex items-center justify-around;
+}
+.Login-bottomSection-rightPart {
+  @apply flex items-center flex-col;
+}
