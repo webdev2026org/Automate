@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 const Navbar = (props) => {
 
     const handleLoginClick = () => {
-        if (!props.isLoggedIn) {
-            props.setIsLoggedIn(true);
+        if (!props.showLoginModal) {
+            props.setShowLoginModal(true);
         }
     };
 

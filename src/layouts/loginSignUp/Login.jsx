@@ -5,11 +5,16 @@ import { useState } from "react";
 
 const Login = () => {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    username: "",
+    password: "",
+    type: "", // login / signup
+  });
 
    const handleLoginClose = () => {
-    if(isLoggedIn){
-        setIsLoggedIn(false);
+    if(showLoginModal){
+        setShowLoginModal(false);
     }
     }
 
@@ -21,17 +26,19 @@ const Login = () => {
    breadcrumbItems={[]}
    showCartIcon={false}
    showLoginBtn={true} 
-   isLoggedIn={isLoggedIn}
-   setIsLoggedIn={setIsLoggedIn}
+   showLoginModal={showLoginModal}
+   setShowLoginModal={setShowLoginModal}
    />
     <main className='container mx-auto px-4 py-8'> Login Page</main>
    <Footer 
-   isLoggedIn={false}
+   showLoginModal={false}
     
    />
-   {isLoggedIn && 
+   {showLoginModal && 
    <LoginSignUpModal
     onLoginClose={handleLoginClose}
+    userDetails={userDetails}
+    setUserDetails={setUserDetails}
    />}
     </div>
   )
