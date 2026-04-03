@@ -1,7 +1,6 @@
 import Navbar from "../global/Navbar"
 import Footer from "../global/Footer"
 
-
 function Login() {
   return (
     <div className='app-container flex flex-col min-h-screen justify-between'>
@@ -10,10 +9,13 @@ function Login() {
    showmenuOtions={false}
    breadcrumbItems={[]}
    showCartIcon={false}
-   showLoginBtn={true}
+   showLoginBtn={true} 
    />
     <main className='container mx-auto px-4 py-8'> Login Page</main>
-   <Footer/>
+   <Footer 
+   isLoggedIn={false}
+    
+   />
     </div>
   )
 }

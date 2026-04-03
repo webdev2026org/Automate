@@ -1,9 +1,11 @@
-import React from 'react'
 
-const Footer = () => {
+import { Link } from "react-router-dom";
+
+const Footer = (props) => {
     return (
         <footer className='Footer'>
-            <div className="Footer-top">
+            {props.isLoggedIn && <div className="Footer-top">
+                
                 {/* Brand / Logo */}
                 <div className="Footer-brand">
                     <h2 className="Footer-logo">AccessCommerce</h2>
@@ -31,7 +33,26 @@ const Footer = () => {
                         <li><a href="/shipping">Shipping & Returns</a></li>
                     </ul>
                 </div>
-            </div>
+            </div>}
+
+            {
+                !props.isLoggedIn && 
+                <div className="Logged-out-footer">
+                    <div className="Footer-links">
+                    {/* Left links */}
+                        <span>AccessibleCa</span>
+                        <div className="Footer-social-links">
+                            <Link to="#">Instagram</Link>
+                            <Link to="#">X</Link>
+                            <Link to="#">Github</Link>
+                        </div>
+                    </div>
+                    <div className="Footer-copy">
+                    {/* Right links */}
+                    @ AccessibleCart 2026
+                    </div>
+                </div>
+            }
 
         </footer>
     )
