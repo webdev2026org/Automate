@@ -91,6 +91,38 @@ html,body, #root {
   @apply border border-gray-400 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-gray-300;
 }
 
+/* Login Signup Modal Container */
+.LoginSignUpModal {
+  @apply fixed inset-0 flex flex-col items-center justify-center bg-[rgba(0,0,0,0.4)];
+}
+.LoginSignUpModal-content {
+  @apply relative min-w-[350px] bg-white rounded-3xl shadow-xl p-6 pt-12 overflow-hidden;
+}
+.LoginSignUpModal-activeTab {
+  @apply bg-white font-semibold rounded-tr-3xl border-black;
+}
+.LoginSignUpModal-inActiveTab {
+  @apply text-gray-500 border-b-2 border-black;
+}
+.LoginSignUpModal-input {
+  @apply border rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-black;
+}
+.LoginSignUpModal-button {
+  @apply bg-black text-white rounded-lg px-4 py-2 font-medium hover:bg-gray-800 transition;
+}
+.LoginSignUpModal-tabs {
+  @apply absolute top-0 left-0 w-full flex;
+}
+.LoginSignUpModal-form {
+  @apply mt-8 p-4 flex flex-col gap-6;
+}
+.LoginSignUpModal-colose-container {
+  @apply relative mb-2 bg-white rounded-3xl shadow-xl w-[48px] h-[45px] pt-12 overflow-hidden;
+}
+.LoginSignUpModal-close {
+  @apply absolute z-10 text-4xl top-[0] left-[12px] rounded-full text-gray-500 hover:text-black cursor-pointer;
+}
+
 
 /* Footer Container */
 .Footer {
