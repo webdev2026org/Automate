@@ -71,7 +71,7 @@ const LoginSignUpModal = (props) => {
 
     return `${base} ${
       activeTab === "signup"
-        ? "LoginSignUpModal-activeTab border-l-2"
+        ? "LoginSignUpModal-activeTab rounded-tl-3xl border-l-2"
         : "LoginSignUpModal-inActiveTab"
     }`;
   };
