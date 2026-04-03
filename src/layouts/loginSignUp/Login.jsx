@@ -31,7 +31,7 @@ const Login = () => {
    />
     <main className='container mx-auto px-4 py-8'> Login Page</main>
    <Footer 
-   showLoginModal={false}
+   isLoggedIn={false}
     
    />
    {showLoginModal && 
