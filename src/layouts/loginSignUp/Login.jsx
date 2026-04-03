@@ -1,20 +1,37 @@
 import Navbar from "../global/Navbar"
 import Footer from "../global/Footer"
+import LoginSignUpModal from "./LoginSignUpModal"
+import { useState } from "react";
 import ProductCard from "../productView/ProductCard"
 import img1 from "../../assets/img1.png"
 
+const Login = () => {
 
-function Login() {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    username: "",
+    password: "",
+    type: "", // login / signup
+  });
+
+   const handleLoginClose = () => {
+    if(showLoginModal){
+        setShowLoginModal(false);
+    }
+    }
+
   return (
     <div className='app-container flex flex-col min-h-screen justify-between'>
-      <Navbar
-        showSearchBar={false}
-        showmenuOtions={false}
-        breadcrumbItems={[]}
-        showCartIcon={false}
-        showLoginBtn={true}
-      />
-      <main className='container mx-auto px-4 py-8 '>
+   <Navbar 
+   showSearchBar={false}
+   showmenuOtions={false}
+   breadcrumbItems={[]}
+   showCartIcon={false}
+   showLoginBtn={true} 
+   showLoginModal={showLoginModal}
+   setShowLoginModal={setShowLoginModal}
+   />
+    <main className='container mx-auto px-4 py-8 '>
         <div className="Login-heroSection flex items-center justify-between">
           <section className="Login-heroSection-leftPart">
             <h2 className="font-bold text-4xl mb-4">Shop Confidently â ? ? <br />
@@ -86,7 +103,15 @@ function Login() {
       <Footer
         isLoggedIn={false}
       />
+
+   {showLoginModal && 
+   <LoginSignUpModal
+    onLoginClose={handleLoginClose}
+    userDetails={userDetails}
+    setUserDetails={setUserDetails}
+   />}
     </div>
+    
   )
 }
 
