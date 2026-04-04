@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 .app-container {
-  @apply flex flex-col min-h-screen justify-between;
+  @apply flex flex-col min-h-screen;
 }
 
 .login-main {
-  @apply container mx-auto px-4 py-8;
+  @apply flex flex-col p-4 min-h-screen justify-evenly;
 }
 
 .login-hero {
-  @apply flex items-center justify-between pt-16;
+  @apply flex items-center justify-around flex-wrap pt-16;
 }
 
 .login-hero-title {
@@ -78,4 +78,11 @@
 
 .login-bottom-right .subscribe-row button {
   @apply bg-black text-white m-2 px-6 py-3 text-sm font-medium hover:bg-gray-800;
+}
+
+@media (max-width: 768px) {
+
+  .login-bottom {
+    @apply flex-col flex-wrap gap-12;
+  }
 }
