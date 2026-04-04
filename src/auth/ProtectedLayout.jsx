@@ -1,10 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 const ProtectedLayout = () => {
-  
-  const isLoggedIn = localStorage.getItem("userData");
+  const { user } = useAuth();
 
-  if (!isLoggedIn) {
+  console.log('user',user);
+  
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
 
