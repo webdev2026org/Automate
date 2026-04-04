@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
 .product-card {
-    @apply max-w-sm bg-white rounded-lg shadow-md overflow-hidden;
+    @apply w-96 bg-white overflow-hidden;
 }
 .image-container {
-    @apply bg-gray-300;
+    @apply bg-gray-300 h-80 overflow-hidden p-6;
+}
+.image-container img {
+    @apply h-full w-full object-cover p-8;
 }
 .card-description {
     @apply flex justify-between bg-black text-white;

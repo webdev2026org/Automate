@@ -9,11 +9,11 @@
 }
 
 .login-hero {
-  @apply flex items-center justify-between;
+  @apply flex items-center justify-between pt-16;
 }
 
 .login-hero-title {
-  @apply font-bold text-5xl mb-6;
+  @apply font-bold text-4xl mb-4;
 }
 
 .login-hero-subtitle {
@@ -33,7 +33,7 @@
 }
 
 .login-stats {
-  @apply flex gap-8 py-6;
+  @apply flex gap-8 py-10;
 }
 
 .login-stats-item {

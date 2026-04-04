@@ -10,7 +10,6 @@ const ProductCard = () => {
                 <img
                     src={img2}
                     alt="Stacked beverage crates"
-                    className="py-16 px-16 object-cover"
                 />
             </div>
 
