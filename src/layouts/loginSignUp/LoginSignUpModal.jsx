@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "../../styles/styles.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../auth/AuthContext";
 
 const LoginSignUpModal = (props) => {
+  const { setUser } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login");
 
@@ -53,6 +55,7 @@ const LoginSignUpModal = (props) => {
 
   // 🔹 Update parent state
   props.setUserDetails(userData);
+  setUser(userData); // Update context  
 
   // 🔹 Navigate to products page
   navigate("/products");
