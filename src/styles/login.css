@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+.app-container {
+  @apply flex flex-col min-h-screen justify-between;
+}
+
+.login-main {
+  @apply container mx-auto px-4 py-8;
+}
+
+.login-hero {
+  @apply flex items-center justify-between pt-16;
+}
+
+.login-hero-title {
+  @apply font-bold text-4xl mb-4;
+}
+
+.login-hero-subtitle {
+  @apply text-lg text-gray-600 mb-8;
+}
+
+.login-hero-actions {
+  @apply flex gap-3;
+}
+
+.login-hero-btn-browse {
+  @apply px-12 py-3 bg-black text-white hover:bg-gray-800;
+}
+
+.login-hero-btn-sell {
+  @apply px-12 py-3 bg-black text-white hover:bg-gray-800;
+}
+
+.login-stats {
+  @apply flex gap-8 py-10;
+}
+
+.login-stats-item {
+  @apply px-6 -mx-3;
+}
+
+.login-stats-item-bordered {
+  @apply border-r border-gray-400;
+}
+
+.login-stats-number {
+  @apply text-2xl text-gray-900;
+}
+
+.login-bottom {
+  @apply flex items-center gap-16 py-16 px-8;
+}
+
+.login-bottom-left {
+  @apply w-2/5 flex justify-center;
+}
+
+.login-bottom-left img {
+  @apply w-72;
+}
+
+.login-bottom-right {
+  @apply w-3/5 flex flex-col;
+}
+
+.login-bottom-right h2 {
+  @apply text-3xl font-bold text-gray-900 leading-snug mb-6;
+}
+
+.login-bottom-right .subscribe-row {
+  @apply flex border border-gray-300 overflow-hidden max-w-lg;
+}
+
+.login-bottom-right .subscribe-row input {
+  @apply flex-1 px-4 py-3 outline-none text-gray-600 text-sm;
+}
+
+.login-bottom-right .subscribe-row button {
+  @apply bg-black text-white m-2 px-6 py-3 text-sm font-medium hover:bg-gray-800;
+}

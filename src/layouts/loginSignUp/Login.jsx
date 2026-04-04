@@ -4,6 +4,7 @@ import LoginSignUpModal from "./LoginSignUpModal"
 import { useState } from "react";
 import ProductCard from "../productView/ProductCard"
 import img1 from "../../assets/img1.png"
+import "../../styles/login.css"
 
 const Login = () => {
 
@@ -21,7 +22,7 @@ const Login = () => {
     }
 
   return (
-    <div className='app-container flex flex-col min-h-screen justify-between'>
+    <div className='app-container'>
    <Navbar 
    showSearchBar={false}
    showmenuOtions={false}
@@ -31,69 +32,68 @@ const Login = () => {
    showLoginModal={showLoginModal}
    setShowLoginModal={setShowLoginModal}
    />
-    <main className='container mx-auto px-4 py-8 '>
-        <div className="Login-heroSection flex items-center justify-between">
-          <section className="Login-heroSection-leftPart">
-            <h2 className="font-bold text-4xl mb-4">Shop Confidently â ? ? <br />
+    <main className='login-main'>
+        <div className="login-hero">
+          <section className="login-hero-left">
+            <h2 className="login-hero-title">Shop Confidently â ? ? <br />
               accessible products for
             </h2>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="login-hero-subtitle">
               Accessibility-first ecommerce with thousands of keyboard-friendly, labeled <br/>products.
             </p>
-            <div className="flex gap-3">
-              <button className="px-16 py-3 bg-black text-white hover:bg-gray-800">
+            <div className="login-hero-actions">
+              <button className="login-hero-btn-browse">
                 Browse
               </button>
-              <button className="px-20 py-3 bg-black text-white hover:bg-gray-800">
+              <button className="login-hero-btn-sell">
                 Sell
               </button>
             </div>
 
-            <div className="flex gap-12 py-8">
-              <div className="ProductStats border-r-2 px-6 -mx-3">
-                <p className="text-2xl text-gray-900">8K+</p>
+            <div className="login-stats">
+              <div className="login-stats-item login-stats-item-bordered">
+                <p className="login-stats-number">8K+</p>
                 <p className="text-gray-600">Products</p>
               </div>
-              <div className="ProductStats border-r-2 px-6 -mx-3">
-                <p className="text-2xl text-gray-900">1.5K</p>
+              <div className="login-stats-item login-stats-item-bordered">
+                <p className="login-stats-number">1.5K</p>
                 <p className="text-gray-600">Vendors</p>
               </div>
-              <div className="ProductStats">
-                <p className="text-2xl text-gray-900">120K+</p>
+              <div className="login-stats-item">
+                <p className="login-stats-number">120K+</p>
                 <p className="text-gray-600">Active shoppers</p>
               </div>
             </div>
 
           </section>
 
-          <section className="Login-heroSection-rightPart">
+          <section className="login-hero-right">
             <ProductCard />
           </section>
 
         </div>
 
-        <div className="Login-middleSection">
+        <div className="login-middle">
           Middle section for scrumbergs
         </div>
 
-        <div className="Login-bottomSection">
-          <div className="Login-bottomSection-leftPart">
+        <div className="login-bottom">
+          <div className="login-bottom-left">
             <img 
               src={img1} 
               alt="Login bottom section left part image" 
-              className="w-72"
             />
           </div>
-          <div className="Login-bottomSection-rightPart">
+          <div className="login-bottom-right">
             <h2 className="text-2xl font-semibold text-gray-800 leading-relaxed">
                Join our mailing list for accessibility 
                <br/>updates, early access to accessible 
               <br/> products, and practical shopping tips.      
             </h2>
-            <div className=" w-full mt-6 flex border border-gray-300 rounded-md overflow-hidden">
-            <input type="email" placeholder="Enter your email" className="flex-1 px-4 py-2 outline-none">
+            <div className="subscribe-row">
+            <input type="email" placeholder="Enter your email">
             </input>
-             <button type="Submit" className=" bg-black text-white text-lg w-1/3 px-2 py-2 m-2">Subscribe</button>
+             <button type="Submit">Subscribe</button>
             </div>
            
           </div>
