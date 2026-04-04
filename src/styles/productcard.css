@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
-.Product-card {
+.product-card {
     @apply max-w-sm bg-white rounded-lg shadow-md overflow-hidden;
 }
-.ImageContainer {
+.image-container {
     @apply bg-gray-300;
 }
-.Card-Description {
+.card-description {
     @apply flex justify-between bg-black text-white;
 }
-.Card-Section {
+.card-section {
     @apply flex flex-col w-full m-6 gap-2;
 } 
-.Card-btn {
+.card-btn {
     @apply flex-1 bg-white text-black py-3 px-3 hover:bg-gray-800;
 }

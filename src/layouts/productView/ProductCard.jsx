@@ -1,12 +1,12 @@
 import React from 'react'
 import img2 from "../../assets/img2.png"
-import "../../styles/productCard.css"
+import "../../styles/productcard.css"
 
 const ProductCard = () => {
     return (
-        <div className="Product-card">
+        <div className="product-card">
             {/* Product Image */}
-            <div className='ImageContainer'>
+            <div className='image-container'>
                 <img
                     src={img2}
                     alt="Stacked beverage crates"
@@ -16,20 +16,20 @@ const ProductCard = () => {
 
 
             {/* Product Info */}
-            <div className="Card-Description">
+            <div className="card-description">
 
-               <div className='Card-Section'>
+               <div className='card-section'>
                 <span className="font-medium">Price:</span> 
                 <span>$49.99</span>
-                <button className="Card-btn">
+                <button className="card-btn">
                     Add
                 </button>
                </div>
                 
-               <div className='Card-Section'>
+               <div className='card-section'>
                 <span className="font-medium">Availability:</span> 
                 <span>In stock</span>
-                <button className="Card-btn">
+                <button className="card-btn">
                     Details
                 </button>
                </div>

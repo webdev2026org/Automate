@@ -73,28 +73,27 @@ const Login = () => {
 
         </div>
 
-        <div className="Login-middle">
+        <div className="login-middle">
           Middle section for scrumbergs
         </div>
 
-        <div className="Login-bottom">
-          <div className="Login-bottom-left">
+        <div className="login-bottom">
+          <div className="login-bottom-left">
             <img 
               src={img1} 
               alt="Login bottom section left part image" 
-              className="w-72"
             />
           </div>
-          <div className="Login-bottom-right">
+          <div className="login-bottom-right">
             <h2 className="text-2xl font-semibold text-gray-800 leading-relaxed">
                Join our mailing list for accessibility 
                <br/>updates, early access to accessible 
               <br/> products, and practical shopping tips.      
             </h2>
-            <div className="w-full mt-6 flex border border-gray-300 rounded-md overflow-hidden">
-            <input type="email" placeholder="Enter your email" className="flex-1 px-4 py-2 outline-none">
+            <div className="subscribe-row">
+            <input type="email" placeholder="Enter your email">
             </input>
-             <button type="Submit" className="bg-black text-white text-lg w-1/3 px-2 py-2 m-2">Subscribe</button>
+             <button type="Submit">Subscribe</button>
             </div>
            
           </div>
