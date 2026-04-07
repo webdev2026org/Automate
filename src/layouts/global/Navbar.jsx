@@ -1,8 +1,14 @@
 import { FaStore, FaSearch, FaUser, FaShoppingCart } from "react-icons/fa";
 import Breadcrumb from "./BreadCrum";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../../auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = (props) => {
+    const [showUserModal, setShowUserModal] = useState(false);
+    const { setUser } = useAuth();
+    const navigate = useNavigate();
 
     const handleLoginClick = () => {
         if (!props.showLoginModal) {
@@ -10,7 +16,23 @@ const Navbar = (props) => {
         }
     };
 
+    const handleUserIconClick = () => {
+        setShowUserModal(!showUserModal);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("userData");
+        setUser(null);
+        setShowUserModal(false);
+        navigate("/");
+    };
+
+    const handleUserModalClose = () => {
+        setShowUserModal(false);
+    };
+
   return (
+    <>
     <nav className="Navbar">
       <div className="Left-Navbar-Section flex items-center">
         {/* Logo */}
@@ -68,12 +90,12 @@ const Navbar = (props) => {
               onClick={() => handleLoginClick()}
             />
           )}
-          <div className="Navbar-icons">
+          <div className="Navbar-icons relative">
             {props.userIconType === "user-icon" && (
-              <FaUser className="Navbar-icon" />
+              <FaUser className="Navbar-icon cursor-pointer" onClick={handleUserIconClick} />
             )}
             {props.userIconType === "user-icon-rounded" && (
-              <span className="rounded-full border-2 bg-black p-2">
+              <span className="rounded-full border-2 bg-black p-2 cursor-pointer" onClick={handleUserIconClick}>
                 <FaUser
                   className="Navbar-icon text-white"
                   style={{ color: "white" }}
@@ -81,10 +103,28 @@ const Navbar = (props) => {
               </span>
             )}
             {props.showCartIcon && <FaShoppingCart className="Navbar-icon" />}
+
+            {/* User Modal */}
+            {showUserModal && (
+              <div className="UserModal-overlay" onClick={handleUserModalClose}>
+                <div className="UserModal-content" onClick={(e) => e.stopPropagation()}>
+                  <div className="UserModal-body">
+                    <h3 className="UserModal-title">User Menu</h3>
+                    <button
+                      className="UserModal-logout-btn"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
     </nav>
+    </>
   );
 };
 
