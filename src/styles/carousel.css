@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+.login-middle{
+    @apply w-full flex px-3 items-center justify-center;
+}
+
+/* Carousel Container */
+.carousel {
+  @apply relative w-full my-8 overflow-hidden rounded-lg shadow-lg;
+}
+
+/* Slides Container */
+.carousel-slides {
+  @apply flex transition-transform duration-500 ease-in-out w-full;
+}
+
+/* Individual Slide */
+.carousel-slide {
+  @apply min-w-full relative;
+}
+
+.carousel-slide img {
+  @apply w-full h-auto block object-cover;
+}
+
+/* Navigation Buttons */
+.carousel-nav {
+  @apply absolute top-1/2 -translate-y-1/2 bg-white/80 border-none rounded-full w-10 h-10 cursor-pointer flex items-center justify-center text-lg text-gray-700 transition-all duration-300 z-10;
+}
+
+.carousel-nav:hover {
+  @apply hover:bg-white hover:scale-110;
+}
+
+.carousel-nav.prev {
+  @apply left-2.5;
+}
+
+.carousel-nav.next {
+  @apply right-2.5;
+}
+
+/* Indicators/Dots */
+.carousel-indicators {
+  @apply absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-10;
+}
+
+.carousel-indicator {
+  @apply w-3 h-3 rounded-full bg-white/50 border-none cursor-pointer transition-all duration-300 hover:bg-white/80;
+}
+
+.carousel-indicator.active {
+  @apply bg-white scale-125;
+}
+
+/* Slide Content Overlay */
+.carousel-content {
+  @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent text-white p-10 pb-5 text-center;
+}
+
+.carousel-content h2 {
+  @apply m-0 mb-2.5 text-2xl font-bold;
+}
+
+.carousel-content p {
+  @apply m-0 text-base opacity-90;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .carousel-nav {
+    @apply w-9 h-9 text-base;
+  }
+
+  .carousel-content {
+    @apply p-8 pb-4;
+  }
+
+  .carousel-content h2 {
+    @apply text-xl;
+  }
+
+  .carousel-content p {
+    @apply text-sm;
+  }
+
+  .carousel-indicators {
+    @apply bottom-4;
+  }
+
+  .carousel-indicator {
+    @apply w-2.5 h-2.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-nav {
+    @apply w-8 h-8 text-sm;
+  }
+
+  .carousel-content {
+    @apply p-5 pb-2.5;
+  }
+
+  .carousel-content h2 {
+    @apply text-lg;
+  }
+
+  .carousel-content p {
+    @apply text-xs;
+  }
+}
+
+/* Loading State */
+.carousel-loading {
+  @apply flex items-center justify-center h-72 bg-gray-100 text-gray-600 text-lg;
+}
+
+/* Animation Classes */
+.carousel-slide-enter {
+  @apply opacity-0 translate-x-full;
+}
+
+.carousel-slide-enter-active {
+  @apply opacity-100 translate-x-0 transition-all duration-500 ease-in-out;
+}
+
+.carousel-slide-exit {
+  @apply opacity-100 translate-x-0;
+}
+
+.carousel-slide-exit-active {
+  @apply opacity-0 -translate-x-full transition-all duration-500 ease-in-out;
+}
