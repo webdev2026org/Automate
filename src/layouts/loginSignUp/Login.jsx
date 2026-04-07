@@ -5,6 +5,7 @@ import { useState } from "react";
 import ProductCard from "../productView/ProductCard"
 import img1 from "../../assets/img1.png"
 import "../../styles/login.css"
+import Carousel from "../global/Carousel"
 
 const Login = () => {
 
@@ -21,14 +22,36 @@ const Login = () => {
     }
     }
 
+  // Carousel slides data for the login page
+  const carouselSlides = [
+    {
+      id: 1,
+      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=400&fit=crop',
+      title: 'Shop with Confidence',
+      description: 'Discover accessible products designed for everyone'
+    },
+    {
+      id: 2,
+      image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200&h=400&fit=crop',
+      title: 'New Accessible Products',
+      description: 'Latest additions to our inclusive product catalog'
+    },
+    {
+      id: 3,
+      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=400&fit=crop',
+      title: 'Join Our Community',
+      description: 'Connect with vendors and shoppers who care about accessibility'
+    }
+  ];
+
   return (
     <div className='app-container'>
-   <Navbar 
+   <Navbar
    showSearchBar={false}
    showmenuOtions={false}
    breadcrumbItems={[]}
    showCartIcon={false}
-   showLoginBtn={true} 
+   showLoginBtn={true}
    showLoginModal={showLoginModal}
    setShowLoginModal={setShowLoginModal}
    />
@@ -74,7 +97,7 @@ const Login = () => {
         </div>
 
         <div className="login-middle">
-          Middle section for scrumbergs
+          <Carousel slides={carouselSlides} />
         </div>
 
         <div className="login-bottom">
