@@ -1,6 +1,7 @@
 import Dropdown from "../global/Dropdown";
 
-const SubNavbar = () => {
+const SubNavbar = ({selectedSortBy, setSelectedSortBy}) => {
+
   return (
     <nav className="subNavbar">
       <div className="subNavbar-left-section">
@@ -32,8 +33,8 @@ const SubNavbar = () => {
         <Dropdown
           label="Sort by"
           options={["Relevance", "Date", "Popularity"]}
-          defaultValue="Popularity"
-          onChange={(value) => console.log("Selected:", value)}
+          defaultValue={selectedSortBy}
+          onChange={(value) => setSelectedSortBy(value)}
         />
       </div>
     </nav>

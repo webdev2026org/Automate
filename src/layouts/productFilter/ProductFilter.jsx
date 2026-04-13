@@ -1,11 +1,8 @@
 import "../../styles/productfilter.css"
 import { useState } from "react";
+import { FILTER_DATA } from "../../constants/productFilter"
 
-const ProductFilter = () => {
-
-    const Categories = ["Headphones", "Speakers", "Accessories"];
-    const Brands = ["Auralite", "Boreal Sound", "Crescendo"];
-    const Ratings = ["4 stars & up", "3 stars & up", "2 stars & up"];
+const ProductFilter = ({ setPayload }) => {
 
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedBrands, setSelectedBrands] = useState([]);
@@ -24,7 +21,14 @@ const ProductFilter = () => {
 
     const handleApply = () => {
         setIsApplied(true);
-        alert("Filters applied !!");
+        // alert("Filters applied !!");
+        setPayload({
+          category: selectedCategories,
+          brand:selectedBrands,
+          rating:rating,
+          price:price,
+        })
+        onPrinted();
     };
 
     const resetFilters = () => {
@@ -36,6 +40,7 @@ const ProductFilter = () => {
 
     };
 
+
     return (
         <div className="product-filter">
             <div className="filters">Filters</div>
@@ -43,7 +48,7 @@ const ProductFilter = () => {
             {/* Category */}
             <div className="filter-section">
                 <h3>Category</h3>
-                {Categories.map((category, index) => (
+                {FILTER_DATA.Categories.map((category, index) => (
                     <label key={index} style={{ display: "block", marginBottom: "8px" }}>
                         <input
                             type="checkbox"
@@ -79,7 +84,7 @@ const ProductFilter = () => {
             {/* Brand */}
             <div className="filter-section">
                 <h3>Brand</h3>
-                {Brands.map((Brand, index) => (
+                {FILTER_DATA.Brands.map((Brand, index) => (
                     <label key={index} style={{ display: "block", marginBottom: "8px" }}>
                         <input
                             type="checkbox"
@@ -96,7 +101,7 @@ const ProductFilter = () => {
             {/* Cutomer Rating */}
             <div className="filter-section">
                 <h3>Customer Rating</h3>
-                {Ratings.map((Rating, index) => (
+                {FILTER_DATA.Ratings.map((Rating, index) => (
                     <label key={index} style={{ display: "block", marginBottom: "8px" }}>
                         <input
                             type="radio"
@@ -117,7 +122,6 @@ const ProductFilter = () => {
                 >
                     Apply
                 </button>
-
                 <button
                     className="btn-reset"
                     onClick={resetFilters}
