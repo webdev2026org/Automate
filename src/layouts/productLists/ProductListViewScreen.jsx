@@ -3,6 +3,9 @@ import SubNavbar from "../global/SubNavbar";
 import Footer from "../global/Footer";
 import ProductFilter from "../productFilter/ProductFilter";
 import { useEffect, useState } from "react";
+import ItemCard from "../global/ItemCard";
+import { ITEM_CARD_DATA } from "../../constants/itemCardData";
+import useDebounce from "../../hooks/useDebounce";
 
 const ProductListViewScreen = () => {
 
@@ -12,17 +15,20 @@ const ProductListViewScreen = () => {
     brand: [],
     rating: "",
     price: [25, 999],
-  })
-
+  });
+  const [searchByValue, setSearchByValue] = useState("");
   const [selectedSortBy, setSelectedSortBy] = useState("Popularity");
 
+  const debouncedValue = useDebounce(searchByValue, 500);
+
   const apiCall = () => {
-    console.log(payload, selectedSortBy);
-  }
+    console.log(payload, selectedSortBy, debouncedValue);
+  };
 
   useEffect(() => {
-    apiCall()
-  }, [payload, selectedSortBy])
+      if (debouncedValue.trim() === "") return;
+    apiCall();
+  }, [payload, selectedSortBy, debouncedValue]);
 
   return (
     <div className="app-container flex flex-col h-full">
@@ -34,6 +40,7 @@ const ProductListViewScreen = () => {
           breadcrumbItems={[]}
           showCartIcon={true}
           userIconType="user-icon"
+          setSearchByValue={setSearchByValue}
         />
         <SubNavbar
           selectedSortBy={selectedSortBy}
