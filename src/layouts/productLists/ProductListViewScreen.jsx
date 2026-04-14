@@ -8,8 +8,6 @@ import { ITEM_CARD_DATA } from "../../constants/itemCardData";
 import useDebounce from "../../hooks/useDebounce";
 
 const ProductListViewScreen = () => {
-
-
   const [payload, setPayload] = useState({
     category: [],
     brand: [],
@@ -17,6 +15,7 @@ const ProductListViewScreen = () => {
     price: [25, 999],
   });
   const [searchByValue, setSearchByValue] = useState("");
+
   const [selectedSortBy, setSelectedSortBy] = useState("Popularity");
 
   const debouncedValue = useDebounce(searchByValue, 500);
@@ -26,9 +25,13 @@ const ProductListViewScreen = () => {
   };
 
   useEffect(() => {
-      if (debouncedValue.trim() === "") return;
+    if (debouncedValue.trim() === "") return;
     apiCall();
   }, [payload, selectedSortBy, debouncedValue]);
+
+  useEffect(() => {
+    apiCall();
+  }, [payload, selectedSortBy]);
 
   return (
     <div className="app-container flex flex-col h-full">
@@ -42,25 +45,23 @@ const ProductListViewScreen = () => {
           userIconType="user-icon"
           setSearchByValue={setSearchByValue}
         />
-        <SubNavbar
-          selectedSortBy={selectedSortBy}
-          setSelectedSortBy={setSelectedSortBy}
-        />
+        <SubNavbar selectedSortBy={selectedSortBy} setSelectedSortBy={setSelectedSortBy} />
 
-        <main className=" flex items-stretch px-4 py-8 gap-6">
-          <div className="filter w-80 border border-gray-300 rounded-md bg-white self-stretch">
-            <ProductFilter
-
-              setPayload={setPayload}
-            />
+        <main className="flex items-stretch px-6 py-8 gap-6">
+          <div className="filter w-80 bg-white self-stretch">
+            <ProductFilter setPayload={setPayload} />
           </div>
 
-          <div className="product-cards-grid w-full border-2 border-blue-500">
-            my product card
+          <div className="product-cards-grid w-full grid gap-6 justify-items-center sm:grid-cols-2 lg:grid-cols-3">
+            {ITEM_CARD_DATA.map((item, index) => (
+              <ItemCard key={`item-card-${index}`} {...item} />
+            ))}
           </div>
         </main>
       </div>
-      <Footer />
+      <Footer 
+      isLoggedIn={true}
+      />
     </div>
   );
 };

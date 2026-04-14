@@ -28,7 +28,6 @@ const ProductFilter = ({ setPayload }) => {
           rating:rating,
           price:price,
         })
-        onPrinted();
     };
 
     const resetFilters = () => {
