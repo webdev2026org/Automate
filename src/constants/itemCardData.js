@@ -1,9 +1,6 @@
-import img1 from "../assets/img1.png";
-import img2 from "../assets/img2.png";
-
 export const ITEM_CARD_DATA = [
   {
-    image: img2,
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center",
     alt: "Auralite Graphite Over-Ear",
     category: "Headphones",
     title: "Auralite Graphite Over-Ear",
@@ -14,18 +11,18 @@ export const ITEM_CARD_DATA = [
     note: "Quick view or add this item to the cart for fast checkout.",
   },
   {
-    image: img1,
-    alt: "Boreal Pulse Mini Speaker",
+    image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=300&fit=crop&crop=center",
+    alt: "SonicWave Wireless Earbuds",
     category: "Speakers",
-    title: "Boreal Pulse Mini Speaker",
-    price: "$79.99",
-    subtitle: "Ultra-portable speaker with waterproof design and clear midrange for outdoor use.",
-    stockText: "Only 6 left",
+    title: "SonicWave Wireless Earbuds",
+    price: "$129.99",
+    subtitle: "True wireless earbuds with active noise cancellation and 8-hour battery life.",
+    stockText: "Only 3 left",
     rating: "★★★★★",
     note: "Quick view or add this item to the cart for fast checkout.",
   },
   {
-    image: img2,
+    image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400&h=300&fit=crop&crop=center",
     alt: "Crescendo IEM Pro",
     category: "Accessories",
     title: "Crescendo IEM Pro",
@@ -36,7 +33,7 @@ export const ITEM_CARD_DATA = [
     note: "Quick view or add this item to the cart for fast checkout.",
   },
   {
-    image: img1,
+    image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=300&fit=crop&crop=center",
     alt: "Auralite Graphite Over-Ear 2",
     category: "Headphones",
     title: "Auralite Graphite Over-Ear",
@@ -47,7 +44,7 @@ export const ITEM_CARD_DATA = [
     note: "Quick view or add this item to the cart for fast checkout.",
   },
   {
-    image: img2,
+    image: "https://images.unsplash.com/photo-1545127398-14699f92334b?w=400&h=300&fit=crop&crop=center",
     alt: "Boreal Pulse Mini Speaker 2",
     category: "Speakers",
     title: "Boreal Pulse Mini Speaker",
@@ -58,7 +55,7 @@ export const ITEM_CARD_DATA = [
     note: "Quick view or add this item to the cart for fast checkout.",
   },
   {
-    image: img1,
+    image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=300&fit=crop&crop=center",
     alt: "Crescendo IEM Pro 2",
     category: "Accessories",
     title: "Crescendo IEM Pro",
