@@ -49,7 +49,9 @@ const ProductListViewScreen = () => {
           </div>
         </main>
       </div>
-      <Footer />
+      <Footer 
+      isLoggedIn={true}
+      />
     </div>
   );
 };
