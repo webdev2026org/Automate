@@ -31,6 +31,9 @@ const Navbar = (props) => {
         setShowUserModal(false);
     };
 
+    const handleSearch = (e) => {
+      props.setSearchByValue(e.target.value);
+    }
   return (
     <>
     <nav className="Navbar">
@@ -79,7 +82,8 @@ const Navbar = (props) => {
           {props.showSearchBar && (
             <div className="Navbar-Search">
               <FaSearch className="Navbar-Search-icon" />
-              <input type="text" placeholder="Search .."></input>
+              <input type="text" placeholder="Search .."
+              onChange={handleSearch}></input>
             </div>
           )}
           {props.showLoginBtn && (
