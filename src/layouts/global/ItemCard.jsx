@@ -1,6 +1,9 @@
 import "../../styles/itemcard.css"
+import "../../styles/starrating.css"
+import StarRating from "./StarRating"
 
 const ItemCard = ({
+  id,
   image,
   alt,
   category,
@@ -10,6 +13,7 @@ const ItemCard = ({
   stockText,
   rating,
   note,
+  onRate,
 }) => {
   return (
     <article className="item-card">
@@ -30,7 +34,18 @@ const ItemCard = ({
 
         <div className="item-card__meta">
           <span className="item-card__stock">{stockText}</span>
-          <span className="item-card__rating">{rating}</span>
+          {/* <span className="item-card__rating">{rating}</span> */}
+          {/* Updated Rating */}
+          <div className="item-card__rating">
+            <StarRating
+              rating={Number(rating)}
+              isInteractive={false} // change to true later
+              onRate={(value) => onRate && onRate(value, id)}
+            />
+            <span className="text-sm text-gray-600">
+              ({rating})
+            </span>
+          </div>
         </div>
 
         <p className="item-card__note">{note}</p>

@@ -21,6 +21,11 @@ const ProductListViewScreen = () => {
 
   const debouncedValue = useDebounce(searchByValue, 500);
 
+  const handleRating = (value, productId) => {
+  console.log("Rated:", value, "Product:", productId);
+
+};
+
   const apiCall = async () => {
     try {
       // json-server --watch constants/productData.json --port 4500
@@ -68,8 +73,11 @@ const ProductListViewScreen = () => {
           </div>
 
           <div className="product-cards-grid w-full grid gap-6 justify-items-center sm:grid-cols-2 lg:grid-cols-3">
-            {cardData.map((item, index) => (
-              <ItemCard key={`item-card-${index}`} {...item} />
+            {cardData.map((item) => (
+              <ItemCard key={item.id} 
+              {...item} 
+              onRate={handleRating}
+              />
             ))}
           </div>
         </main>
