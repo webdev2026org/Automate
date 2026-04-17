@@ -4,7 +4,6 @@ import Footer from "../global/Footer";
 import ProductFilter from "../productFilter/ProductFilter";
 import { useEffect, useState } from "react";
 import ItemCard from "../global/ItemCard";
-import { ITEM_CARD_DATA } from "../../constants/itemCardData";
 import useDebounce from "../../hooks/useDebounce";
 
 const ProductListViewScreen = () => {
@@ -18,10 +17,22 @@ const ProductListViewScreen = () => {
 
   const [selectedSortBy, setSelectedSortBy] = useState("Popularity");
 
+  const [cardData, setCardData] = useState([]);
+
   const debouncedValue = useDebounce(searchByValue, 500);
 
-  const apiCall = () => {
-    console.log(payload, selectedSortBy, debouncedValue);
+  const apiCall = async () => {
+
+    try {
+      // json-server --watch constants/productData.json --port 4500
+      const response = await fetch(`http://localhost:4500/productData`)
+      const productData = await response.json()
+      console.log("Api Called : ", productData);
+      setCardData(productData);
+    } catch (error) {
+
+    }
+    //console.log(payload, selectedSortBy, debouncedValue);
   };
 
   useEffect(() => {
@@ -53,14 +64,14 @@ const ProductListViewScreen = () => {
           </div>
 
           <div className="product-cards-grid w-full grid gap-6 justify-items-center sm:grid-cols-2 lg:grid-cols-3">
-            {ITEM_CARD_DATA.map((item, index) => (
+            {cardData.map((item, index) => (
               <ItemCard key={`item-card-${index}`} {...item} />
             ))}
           </div>
         </main>
       </div>
-      <Footer 
-      isLoggedIn={true}
+      <Footer
+        isLoggedIn={true}
       />
     </div>
   );
