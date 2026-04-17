@@ -22,27 +22,31 @@ const ProductListViewScreen = () => {
   const debouncedValue = useDebounce(searchByValue, 500);
 
   const apiCall = async () => {
-
     try {
       // json-server --watch constants/productData.json --port 4500
       const response = await fetch(`http://localhost:4500/productData`)
-      const productData = await response.json()
+      let productData = await response.json()
+
+      console.log("First item keys:", productData[0]);
+      console.log("Debounced search value:", debouncedValue);
+      if(debouncedValue.trim()) {
+        productData = productData.filter((item) => (
+          item.title.toLowerCase().includes(debouncedValue.toLowerCase())
+        ));
+      }
+
       console.log("Api Called : ", productData);
       setCardData(productData);
     } catch (error) {
-
+      console.error("Fetch Error :", error);
     }
     //console.log(payload, selectedSortBy, debouncedValue);
+
   };
 
   useEffect(() => {
-    if (debouncedValue.trim() === "") return;
     apiCall();
   }, [payload, selectedSortBy, debouncedValue]);
-
-  useEffect(() => {
-    apiCall();
-  }, [payload, selectedSortBy]);
 
   return (
     <div className="app-container flex flex-col h-full">
