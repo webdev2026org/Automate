@@ -6,7 +6,7 @@
       "alt": "Auralite Graphite Over-Ear",
       "category": "Headphones",
       "title": "Auralite Graphite Over-Ear",
-      "price": "$149.00",
+      "price": "$0",
       "subtitle": "Balanced sound profile with memory foam ear cushions and 30-hour battery life.",
       "stockText": "In stock",
       "rating": 5,
@@ -21,7 +21,7 @@
       "price": "$129.99",
       "subtitle": "True wireless earbuds with active noise cancellation and 8-hour battery life.",
       "stockText": "Only 3 left",
-      "rating": 4,
+      "rating": 3,
       "note": "Quick view or add this item to the cart for fast checkout."
     },
     {
@@ -33,7 +33,7 @@
       "price": "$229.00",
       "subtitle": "Studio-grade in-ear monitors with detachable cable and tunable filters.",
       "stockText": "Pre-order",
-      "rating": 4.1,
+      "rating": 1,
       "note": "Quick view or add this item to the cart for fast checkout."
     },
     {
@@ -57,7 +57,7 @@
       "price": "$84.99",
       "subtitle": "Compact wireless speaker with rich battery life and crisp sound.",
       "stockText": "Low stock",
-      "rating": 2.5,
+      "rating": 2,
       "note": "Quick view or add this item to the cart for fast checkout."
     },
     {
@@ -69,7 +69,7 @@
       "price": "$199.00",
       "subtitle": "Professional in-ear monitors tuned for clarity and deep bass response.",
       "stockText": "In stock",
-      "rating": 3.8,
+      "rating": 1,
       "note": "Quick view or add this item to the cart for fast checkout."
     },
     {
@@ -81,7 +81,7 @@
       "price": "$149.00",
       "subtitle": "Balanced sound profile with memory foam ear cushions and 30-hour battery life.",
       "stockText": "In stock",
-      "rating": 4.5,
+      "rating": 1,
       "note": "Quick view or add this item to the cart for fast checkout."
     },
     {
@@ -93,7 +93,7 @@
       "price": "$129.99",
       "subtitle": "True wireless earbuds with active noise cancellation and 8-hour battery life.",
       "stockText": "Only 3 left",
-      "rating": 5,
+      "rating": 0.5,
       "note": "Quick view or add this item to the cart for fast checkout."
     }
   ],

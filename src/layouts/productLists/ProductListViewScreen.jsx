@@ -19,6 +19,7 @@ const ProductListViewScreen = () => {
 
   const [cardData, setCardData] = useState([]);
 
+
   const debouncedValue = useDebounce(searchByValue, 500);
 
   const handleRating = (value, productId) => {
@@ -34,18 +35,42 @@ const ProductListViewScreen = () => {
 
       console.log("First item keys:", productData[0]);
       console.log("Debounced search value:", debouncedValue);
+      
       if(debouncedValue.trim()) {
         productData = productData.filter((item) => (
           item.title.toLowerCase().includes(debouncedValue.toLowerCase())
         ));
       }
 
-      console.log("Api Called : ", productData);
+      const str = payload.rating;
+      const num = Number(str.split(" ")[0]);
+      
+      if(num){
+        productData = productData.filter((item) =>(
+         item.rating >= num
+        ))
+      }
+
+      const maxVal = payload.price[1];
+      const minVal = payload.price[0];
+
+      console.log("Min val is: ", minVal);
+      console.log("Max val is", maxVal);
+
+      if(maxVal) {
+        productData = productData.filter((item)=> (
+          minVal <= Number(item.price.split("$")[1])  && Number(item.price.split("$")[1]) <= maxVal
+        ))
+      }
+      
+      // console.log("Api Called : ", productData);
       setCardData(productData);
     } catch (error) {
       console.error("Fetch Error :", error);
     }
-    //console.log(payload, selectedSortBy, debouncedValue);
+    // console.log(payload, selectedSortBy, debouncedValue);
+    // console.log("Current ratings : ", payload.rating);
+    console.log("Price is:", payload.price);
 
   };
 
