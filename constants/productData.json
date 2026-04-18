@@ -3,14 +3,15 @@
     {
       "id": "1",
       "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&crop=center",
-      "alt": "Auralite Graphite Over-Ear",
+      "alt": "Auralite Graphite Over-Ear Test",
       "category": "Headphones",
-      "title": "Auralite Graphite Over-Ear",
-      "price": "$0",
+      "title": "Auralite Graphite Over-Ear Test",
+      "price": "$149.00",
       "subtitle": "Balanced sound profile with memory foam ear cushions and 30-hour battery life.",
       "stockText": "In stock",
-      "rating": 5,
-      "note": "Quick view or add this item to the cart for fast checkout."
+      "rating": "★★★★★",
+      "note": "Quick view or add this item to the cart for fast checkout.",
+      "brand": "Auralite"
     },
     {
       "id": "2",
@@ -22,7 +23,9 @@
       "subtitle": "True wireless earbuds with active noise cancellation and 8-hour battery life.",
       "stockText": "Only 3 left",
       "rating": 3,
-      "note": "Quick view or add this item to the cart for fast checkout."
+      "note": "Quick view or add this item to the cart for fast checkout.",
+      "brand": "Auralite"
+
     },
     {
       "id": "3",
@@ -34,7 +37,9 @@
       "subtitle": "Studio-grade in-ear monitors with detachable cable and tunable filters.",
       "stockText": "Pre-order",
       "rating": 1,
-      "note": "Quick view or add this item to the cart for fast checkout."
+      "note": "Quick view or add this item to the cart for fast checkout.",
+      "brand": "Crescendo"
+
     },
     {
       "id": "4",
@@ -46,7 +51,9 @@
       "subtitle": "Comfortable over-ear design with balanced bass and refined treble.",
       "stockText": "In stock",
       "rating": 3,
-      "note": "Quick view or add this item to the cart for fast checkout."
+      "note": "Quick view or add this item to the cart for fast checkout.",
+      "brand": "Auralite"
+
     },
     {
       "id": "5",
@@ -58,7 +65,9 @@
       "subtitle": "Compact wireless speaker with rich battery life and crisp sound.",
       "stockText": "Low stock",
       "rating": 2,
-      "note": "Quick view or add this item to the cart for fast checkout."
+      "note": "Quick view or add this item to the cart for fast checkout.",
+      "brand": "Boreal Sound"
+
     },
     {
       "id": "6",
@@ -70,7 +79,9 @@
       "subtitle": "Professional in-ear monitors tuned for clarity and deep bass response.",
       "stockText": "In stock",
       "rating": 1,
-      "note": "Quick view or add this item to the cart for fast checkout."
+      "note": "Quick view or add this item to the cart for fast checkout.",
+      "brand": "Crescendo"
+
     },
     {
       "id": "RxogW6M19y8",
@@ -82,7 +93,9 @@
       "subtitle": "Balanced sound profile with memory foam ear cushions and 30-hour battery life.",
       "stockText": "In stock",
       "rating": 1,
-      "note": "Quick view or add this item to the cart for fast checkout."
+      "note": "Quick view or add this item to the cart for fast checkout.",
+      "brand": "Auralite"
+
     },
     {
       "id": "FZR04dchaX0",
@@ -94,7 +107,9 @@
       "subtitle": "True wireless earbuds with active noise cancellation and 8-hour battery life.",
       "stockText": "Only 3 left",
       "rating": 0.5,
-      "note": "Quick view or add this item to the cart for fast checkout."
+      "note": "Quick view or add this item to the cart for fast checkout.",
+      "brand": "Boreal Sound"
+
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

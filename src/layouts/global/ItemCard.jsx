@@ -14,6 +14,7 @@ const ItemCard = ({
   rating,
   note,
   onRate,
+  brand
 }) => {
   return (
     <article className="item-card">
