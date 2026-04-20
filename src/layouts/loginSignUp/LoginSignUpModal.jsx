@@ -2,16 +2,22 @@ import { useState } from "react";
 import "../../styles/styles.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
+import { inValidate } from "../../utils/validate";
 
 const LoginSignUpModal = (props) => {
   const { setUser } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login");
-
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     confirmPassword: "",
+  });
+  const [errorData, setErrorData] = useState({
+    usernameError: "",
+    passwordError: "",
+    confirmPasswordError: "",
+
   });
 
   const handleTabChange = (tab) => {
@@ -33,50 +39,88 @@ const LoginSignUpModal = (props) => {
   };
 
   const handleSubmit = () => {
-  const { username, password, confirmPassword } = formData;
+    const { username, password, confirmPassword } = formData;
 
-  if (!username || !password) {
-    alert("Please fill all fields");
-    return;
-  }
+    let errors = {
+      usernameError: "",
+      passwordError: "",
+      confirmPasswordError: "",
+    };
 
-  if (activeTab === "signup") {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
+    // console.log("Username is :", username);
+    // console.log("Password is:", password);
+    // inValidate("username",john_doe )
+
+    if (!inValidate("username",username )) {
+      // alert("Please enter a valid username.");
+      errors.usernameError = "Username must be 3–20 characters and can only contain letters, numbers, and underscores."
+    }
+
+    if (!inValidate("password",password )) {
+      // alert("Please enter a valid password.")
+      errors.passwordError = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character."
+    }
+
+    if (activeTab === "signup") {
+      if (password !== confirmPassword) {
+        errors.confirmPasswordError = "Password doesn't match !!"
+      }
+    }
+
+    setErrorData(errors);
+
+    const hasError =
+      errors.usernameError ||
+      errors.passwordError ||
+      errors.confirmPasswordError;
+
+    if (hasError) {
+      // Auto clear errors after 3 sec
+      setTimeout(() => {
+        resetErrorData();
+      }, 3000);
+
       return;
     }
+
+    // const userData = `${username}${password}${activeTab}`;
+    // const userDataHash = btoa(userData); // simple encoding for demo
+
+    // // 🔹 Save to localStorage
+    // localStorage.setItem("userData", JSON.stringify(userDataHash));
+
+    // // 🔹 Update parent state
+    // props.setUserDetails(userData);
+    // setUser(userData); // Update context  
+
+    // // 🔹 Navigate to products page
+    // navigate("/products");
+
+
+  };
+
+  const resetErrorData = () => {
+    setErrorData({
+      usernameError: "",
+      passwordError: "",
+      confirmPasswordError: "",
+    })
   }
-
-  const userData = `${username}${password}${activeTab}`;
-  const userDataHash = btoa(userData); // simple encoding for demo
-
-  // 🔹 Save to localStorage
-  localStorage.setItem("userData", JSON.stringify(userDataHash));
-
-  // 🔹 Update parent state
-  props.setUserDetails(userData);
-  setUser(userData); // Update context  
-
-  // 🔹 Navigate to products page
-  navigate("/products");
-};
 
   const getTabClasses = (tab) => {
     const base = "w-1/2 py-3 text-center";
 
     if (tab === "login") {
-      return `${base} ${
-        activeTab === "login"
-          ? "LoginSignUpModal-activeTab border-r-2"
-          : "LoginSignUpModal-inActiveTab"
-      }`;
+      return `${base} ${activeTab === "login"
+        ? "LoginSignUpModal-activeTab border-r-2"
+        : "LoginSignUpModal-inActiveTab"
+        }`;
     }
 
-    return `${base} ${
-      activeTab === "signup"
-        ? "LoginSignUpModal-activeTab rounded-tl-3xl border-l-2"
-        : "LoginSignUpModal-inActiveTab"
-    }`;
+    return `${base} ${activeTab === "signup"
+      ? "LoginSignUpModal-activeTab rounded-tl-3xl border-l-2"
+      : "LoginSignUpModal-inActiveTab"
+      }`;
   };
 
   return (
@@ -119,6 +163,8 @@ const LoginSignUpModal = (props) => {
             className="LoginSignUpModal-input"
           />
 
+          {errorData.usernameError !== "" && <span className="text-red-600">{errorData.usernameError}</span>}
+
           <input
             type="password"
             name="password"
@@ -128,7 +174,9 @@ const LoginSignUpModal = (props) => {
             className="LoginSignUpModal-input"
           />
 
-          {activeTab === "signup" && (
+          {errorData.passwordError !== "" && <span className="text-red-600">{errorData.passwordError}</span>}
+
+          {activeTab === "signup" && (<>
             <input
               type="password"
               name="confirmPassword"
@@ -137,6 +185,8 @@ const LoginSignUpModal = (props) => {
               onChange={handleChange}
               className="LoginSignUpModal-input"
             />
+            {errorData.confirmPasswordError !== "" && <span className="text-red-600">{errorData.confirmPasswordError}</span>}
+          </>
           )}
 
           <button

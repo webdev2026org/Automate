@@ -96,7 +96,7 @@ html,body, #root {
   @apply fixed inset-0 flex flex-col items-center justify-center bg-[rgba(0,0,0,0.4)];
 }
 .LoginSignUpModal-content {
-  @apply relative min-w-[350px] bg-white rounded-3xl shadow-xl p-6 pt-12 overflow-hidden;
+  @apply relative w-[350px] bg-white rounded-3xl shadow-xl p-6 pt-12 overflow-hidden;
 }
 .LoginSignUpModal-activeTab {
   @apply bg-white font-semibold rounded-tr-3xl border-black;
