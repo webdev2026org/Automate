@@ -1,8 +1,112 @@
 import Navbar from "../global/Navbar";
 import SubNavbar from "../global/SubNavbar";
 import Footer from "../global/Footer";
+import ProductFilter from "../productFilter/ProductFilter";
+import { useEffect, useState } from "react";
+import ItemCard from "../global/ItemCard";
+import useDebounce from "../../hooks/useDebounce";
 
 const ProductListViewScreen = () => {
+  const [payload, setPayload] = useState({
+    category: [],
+    brand: [],
+    rating: "",
+    price: [25, 999],
+  });
+  const [searchByValue, setSearchByValue] = useState("");
+
+  const [selectedSortBy, setSelectedSortBy] = useState("Popularity");
+
+  const [cardData, setCardData] = useState([]);
+
+
+  const debouncedValue = useDebounce(searchByValue, 500);
+
+  const handleRating = (value, productId) => {
+    console.log("Rated:", value, "Product:", productId);
+
+  };
+
+  const apiCall = async () => {
+    try {
+      // json-server --watch constants/productData.json --port 4500
+      const response = await fetch(`http://localhost:4500/productData`)
+      let productData = await response.json()
+
+      console.log("First item keys:", productData[0]);
+      console.log("Debounced search value:", debouncedValue);
+
+      if (debouncedValue.trim()) {
+        productData = productData.filter((item) => (
+          item.title.toLowerCase().includes(debouncedValue.toLowerCase())
+        ));
+      }
+
+      const filterCategory = payload.category;
+
+      if (filterCategory.length > 0) {
+        // let filtered = [];
+
+        // for (let i = 0; i < filterCategory.length; i++) {
+        //   for (let j = 0; j < productData.length; j++) {
+        //     if (productData[j].category === filterCategory[i]) {
+        //       filtered.push(productData[j]);
+        //     }
+        //   }
+        // }
+        // productData = filtered;
+
+        productData = productData.filter(item =>
+          filterCategory.includes(item.category)
+        );
+      }
+
+      const filterBrands = payload.brand;
+
+      if(filterBrands.length > 0) {
+        productData = productData.filter((item) =>
+          filterBrands.includes(item.brand)
+        );
+      }
+
+      const str = payload.rating;
+      const num = Number(str.split(" ")[0]);
+
+      if (num) {
+        productData = productData.filter((item) => (
+          item.rating >= num
+        ))
+      }
+
+      const maxVal = payload.price[1];
+      const minVal = payload.price[0];
+
+      console.log("Min val is: ", minVal);
+      console.log("Max val is", maxVal);
+
+      if (maxVal) {
+        productData = productData.filter((item) => (
+          minVal <= Number(item.price.split("$")[1]) && Number(item.price.split("$")[1]) <= maxVal
+        ))
+      }
+
+      console.log("Api Called : ", productData);
+      setCardData(productData);
+    } catch (error) {
+      console.error("Fetch Error :", error);
+    }
+    // console.log(payload, selectedSortBy, debouncedValue);
+    console.log("Filtered Category is :", payload.category);
+    console.log("Filtered Brand is: ", payload.brand);
+    console.log("Current ratings : ", payload.rating);
+    console.log("Price is:", payload.price);
+
+  };
+
+  useEffect(() => {
+    apiCall();
+  }, [payload, selectedSortBy, debouncedValue]);
+
   return (
     <div className="app-container flex flex-col h-full">
       <div className="nav-container flex-1">
@@ -13,15 +117,28 @@ const ProductListViewScreen = () => {
           breadcrumbItems={[]}
           showCartIcon={true}
           userIconType="user-icon"
+          setSearchByValue={setSearchByValue}
         />
-        <SubNavbar />
+        <SubNavbar selectedSortBy={selectedSortBy} setSelectedSortBy={setSelectedSortBy} />
 
-        <main className="container mx-auto px-4 py-8">
-          {" "}
-          main container of List view
+        <main className="flex items-stretch px-6 py-8 gap-6">
+          <div className="filter w-80 bg-white self-stretch">
+            <ProductFilter setPayload={setPayload} />
+          </div>
+
+          <div className="product-cards-grid w-full grid gap-6 justify-items-center sm:grid-cols-2 lg:grid-cols-3">
+            {cardData.map((item) => (
+              <ItemCard key={item.id}
+                {...item}
+                onRate={handleRating}
+              />
+            ))}
+          </div>
         </main>
       </div>
-      <Footer />
+      <Footer
+        isLoggedIn={true}
+      />
     </div>
   );
 };

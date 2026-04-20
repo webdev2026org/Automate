@@ -1,0 +1,64 @@
+@import "tailwindcss";
+/* Container */
+.product-filter {
+  @apply p-4 w-full h-auto border border-gray-300 rounded-md bg-white flex flex-col;
+}
+
+.filters {
+    @apply text-2xl font-semibold mb-4;
+}
+
+.filter-divider {
+  @apply border-t border-gray-200 my-1;
+}
+
+/* Section wrapper */
+.filter-section {
+  @apply py-3;
+}
+
+/* Section heading */
+.filter-section h3 {
+  @apply mb-3 text-sm font-medium text-gray-800;
+}
+
+/* Label styling */
+label {
+  @apply flex items-center gap-2 mb-2 text-sm text-gray-700 cursor-pointer;
+}
+
+/* Inputs */
+input[type="checkbox"],
+input[type="radio"] {
+  @apply mr-2 accent-black;
+}
+
+/* Actions row */
+.filter-actions {
+  @apply flex gap-3 mt-4;
+}
+
+/* Apply button — default: black bg, white text */
+.btn-apply {
+  @apply px-6 py-2 bg-black text-white text-sm font-medium cursor-pointer border border-black;
+  border-radius: 0;
+}
+
+/* Apply button — stays black after clicking */
+.btn-apply.btn-applied {
+  @apply bg-black text-white;
+}
+
+.btn-apply:hover {
+  @apply bg-gray-800;
+}
+
+/* Reset button — white bg, black border, black text */
+.btn-reset {
+  @apply px-6 py-2 bg-white text-black text-sm font-medium cursor-pointer border border-gray-800;
+  border-radius: 0;
+}
+
+.btn-reset:hover {
+  @apply bg-gray-100;
+}

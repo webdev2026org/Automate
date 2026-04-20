@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@layer components {
+  .star-rating {
+    @apply relative inline-block text-[14px];
+  }
+
+  .star-bg {
+    @apply text-gray-300;
+  }
+
+  .star-fill {
+    @apply absolute top-0 left-0 overflow-hidden whitespace-nowrap text-amber-500 transition-all duration-300;
+  }
+
+  .star-overlay {
+    @apply absolute top-0 left-0 flex;
+  }
+
+  .star-overlay span {
+    @apply cursor-pointer w-[14px] text-transparent;
+  }
+
+  .item-card__rating {
+    @apply flex items-center gap-[6px];
+  }
+
+  .star-rating.interactive {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+}

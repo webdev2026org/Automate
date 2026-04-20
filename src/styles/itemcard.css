@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+.item-card {
+  @apply w-full max-w-md rounded-2xl bg-white overflow-hidden shadow-xl flex flex-col;
+}
+
+.item-card__image {
+  @apply w-full h-52 overflow-hidden bg-slate-50;
+}
+
+.item-card__image img {
+  @apply block w-full h-full object-cover;
+}
+
+.item-card__body {
+  @apply px-6 py-5 flex flex-col gap-3;
+}
+
+.item-card__header {
+  @apply flex justify-between gap-3 items-start;
+}
+
+.item-card__category {
+  @apply uppercase tracking-[0.16em] text-[0.65rem] text-slate-500 font-semibold;
+}
+
+.item-card__title {
+  @apply mt-1 text-lg font-semibold leading-snug text-slate-900;
+}
+
+.item-card__subtitle {
+  @apply mt-1 text-sm leading-6 text-slate-500;
+}
+
+.item-card__price {
+  @apply text-base font-bold text-slate-900;
+}
+
+.item-card__meta {
+  @apply flex flex-wrap justify-between items-center gap-3;
+}
+
+.item-card__stock {
+  @apply inline-flex items-center px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold;
+}
+
+.item-card__rating {
+  @apply text-amber-500 text-sm;
+}
+
+.item-card__note {
+  @apply m-0 text-sm leading-6 text-slate-500;
+}
+
+.item-card__actions {
+  @apply flex flex-wrap gap-3;
+}
+
+.item-card__button {
+  @apply rounded-2xl px-4 py-3 text-sm font-semibold transition duration-200 ease-in-out;
+}
+
+.item-card__button--primary {
+  @apply bg-slate-900 text-white hover:bg-slate-950;
+}
+
+.item-card__button--secondary {
+  @apply bg-white text-slate-900 border border-slate-200 hover:bg-slate-50;
+}
+
