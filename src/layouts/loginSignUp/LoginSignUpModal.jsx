@@ -47,17 +47,11 @@ const LoginSignUpModal = (props) => {
       confirmPasswordError: "",
     };
 
-    // console.log("Username is :", username);
-    // console.log("Password is:", password);
-    // inValidate("username",john_doe )
-
     if (!inValidate("username",username )) {
-      // alert("Please enter a valid username.");
       errors.usernameError = "Username must be 3–20 characters and can only contain letters, numbers, and underscores."
     }
 
     if (!inValidate("password",password )) {
-      // alert("Please enter a valid password.")
       errors.passwordError = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character."
     }
 
@@ -75,7 +69,6 @@ const LoginSignUpModal = (props) => {
       errors.confirmPasswordError;
 
     if (hasError) {
-      // Auto clear errors after 3 sec
       setTimeout(() => {
         resetErrorData();
       }, 3000);
@@ -83,19 +76,18 @@ const LoginSignUpModal = (props) => {
       return;
     }
 
-    // const userData = `${username}${password}${activeTab}`;
-    // const userDataHash = btoa(userData); // simple encoding for demo
+    const userData = `${username}${password}${activeTab}`;
+    const userDataHash = btoa(userData); // simple encoding for demo
 
-    // // 🔹 Save to localStorage
-    // localStorage.setItem("userData", JSON.stringify(userDataHash));
+    // 🔹 Save to localStorage
+    localStorage.setItem("userData", JSON.stringify(userDataHash));
 
-    // // 🔹 Update parent state
-    // props.setUserDetails(userData);
-    // setUser(userData); // Update context  
+    // 🔹 Update parent state
+    props.setUserDetails(userData);
+    setUser(userData); // Update context  
 
-    // // 🔹 Navigate to products page
-    // navigate("/products");
-
+    // 🔹 Navigate to products page
+    navigate("/products");
 
   };
 
