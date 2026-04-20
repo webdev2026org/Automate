@@ -67,3 +67,4 @@
 .item-card__button--secondary {
   @apply bg-white text-slate-900 border border-slate-200 hover:bg-slate-50;
 }
+
