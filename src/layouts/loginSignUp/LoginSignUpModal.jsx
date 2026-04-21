@@ -10,14 +10,16 @@ const LoginSignUpModal = (props) => {
   const [activeTab, setActiveTab] = useState("login");
   const [formData, setFormData] = useState({
     username: "",
+    email: "",
     password: "",
     confirmPassword: "",
   });
   const [errorData, setErrorData] = useState({
     usernameError: "",
+    emailError: "",
     passwordError: "",
     confirmPasswordError: "",
-
+    apiError: "",
   });
 
   const handleTabChange = (tab) => {
@@ -38,20 +40,26 @@ const LoginSignUpModal = (props) => {
     }));
   };
 
-  const handleSubmit = () => {
-    const { username, password, confirmPassword } = formData;
+  const handleSubmit = async () => {
+    const { username, email, password, confirmPassword } = formData;
 
     let errors = {
       usernameError: "",
+      emailError: "",
       passwordError: "",
       confirmPasswordError: "",
+      apiError: "",
     };
 
-    if (!inValidate("username",username )) {
+    if (!inValidate("username", username)) {
       errors.usernameError = "Username must be 3–20 characters and can only contain letters, numbers, and underscores."
     }
 
-    if (!inValidate("password",password )) {
+    if (activeTab === "signup" && !inValidate("email", email)) {
+      errors.emailError = "Please enter a valid email address."
+    }
+
+    if (!inValidate("password", password)) {
       errors.passwordError = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character."
     }
 
@@ -61,12 +69,28 @@ const LoginSignUpModal = (props) => {
       }
     }
 
+    try {
+      const response = await fetch(`http://localhost:5000/userData?username=${username}`);
+      const formattedResponse = await response.json();
+      //  console.log("API response for userdata :", formattedResponse.length);
+      if (formattedResponse.length === 0) {
+        errors.apiError = "User doesn't exist, please Sign up.";
+      } else if (formattedResponse[0].password !== password) {
+        errors.apiError = "Password doesn't match, please try with correct password.";
+      }
+
+    } catch (error) {
+      errors.apiError = "Something went wrong ! please try again."
+    }
+
     setErrorData(errors);
 
     const hasError =
       errors.usernameError ||
+      errors.emailError ||
       errors.passwordError ||
-      errors.confirmPasswordError;
+      errors.confirmPasswordError ||
+      errors.apiError;
 
     if (hasError) {
       setTimeout(() => {
@@ -94,8 +118,10 @@ const LoginSignUpModal = (props) => {
   const resetErrorData = () => {
     setErrorData({
       usernameError: "",
+      emailError: "",
       passwordError: "",
       confirmPasswordError: "",
+      apiError: "",
     })
   }
 
@@ -157,6 +183,20 @@ const LoginSignUpModal = (props) => {
 
           {errorData.usernameError !== "" && <span className="text-red-600">{errorData.usernameError}</span>}
 
+          {activeTab === "signup" && (
+            <>
+              <input
+                type="text"
+                name="email"
+                placeholder="Type your email"
+                value={formData.email}
+                onChange={handleChange}
+                className="LoginSignUpModal-input"
+              />
+              {errorData.emailError !== "" && <span className="text-red-600">{errorData.emailError}</span>}
+            </>
+          )}
+
           <input
             type="password"
             name="password"
@@ -180,6 +220,8 @@ const LoginSignUpModal = (props) => {
             {errorData.confirmPasswordError !== "" && <span className="text-red-600">{errorData.confirmPasswordError}</span>}
           </>
           )}
+
+          {errorData.apiError !== "" && <span className="text-red-600">{errorData.apiError}</span>}
 
           <button
             className="LoginSignUpModal-button"

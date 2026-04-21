@@ -12,6 +12,7 @@ const Login = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [userDetails, setUserDetails] = useState({
     username: "",
+    email: "",
     password: "",
     type: "", // login / signup
   });
