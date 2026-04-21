@@ -3,6 +3,7 @@ import "../../styles/styles.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
 import { inValidate } from "../../utils/validate";
+import apiService from "../../utils/apiService";
 
 const LoginSignUpModal = (props) => {
   const { setUser } = useAuth();
@@ -70,9 +71,9 @@ const LoginSignUpModal = (props) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/userData?username=${username}`);
-      const formattedResponse = await response.json();
-      //  console.log("API response for userdata :", formattedResponse.length);
+      const formattedResponse = await apiService.get("login-user-data", { params: { username } });
+
+       console.log("API response for userdata :", formattedResponse);
       if (formattedResponse.length === 0) {
         errors.apiError = "User doesn't exist, please Sign up.";
       } else if (formattedResponse[0].password !== password) {
