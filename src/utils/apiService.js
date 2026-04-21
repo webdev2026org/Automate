@@ -1,6 +1,6 @@
 import { endpoints } from "./endpoints";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 
 const buildUrl = (path, params) => {
   const url = new URL(`${BASE_URL}${path}`);
