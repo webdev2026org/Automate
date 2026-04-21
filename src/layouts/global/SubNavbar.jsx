@@ -13,7 +13,7 @@ const SubNavbar = ({selectedSortBy, setSelectedSortBy}) => {
 
         {/* Text Size  */}
 
-        <div class="textSize">
+        <div className="textSize">
           <span>Text size</span>
           <label>
             <input type="radio" className="w-4 h-4" name="textSize" value="S" />S

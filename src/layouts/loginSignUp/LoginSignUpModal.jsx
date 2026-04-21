@@ -2,16 +2,24 @@ import { useState } from "react";
 import "../../styles/styles.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
+import { inValidate } from "../../utils/validate";
 
 const LoginSignUpModal = (props) => {
   const { setUser } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login");
-
   const [formData, setFormData] = useState({
     username: "",
+    email: "",
     password: "",
     confirmPassword: "",
+  });
+  const [errorData, setErrorData] = useState({
+    usernameError: "",
+    emailError: "",
+    passwordError: "",
+    confirmPasswordError: "",
+    apiError: "",
   });
 
   const handleTabChange = (tab) => {
@@ -32,51 +40,105 @@ const LoginSignUpModal = (props) => {
     }));
   };
 
-  const handleSubmit = () => {
-  const { username, password, confirmPassword } = formData;
+  const handleSubmit = async () => {
+    const { username, email, password, confirmPassword } = formData;
 
-  if (!username || !password) {
-    alert("Please fill all fields");
-    return;
-  }
+    let errors = {
+      usernameError: "",
+      emailError: "",
+      passwordError: "",
+      confirmPasswordError: "",
+      apiError: "",
+    };
 
-  if (activeTab === "signup") {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
+    if (!inValidate("username", username)) {
+      errors.usernameError = "Username must be 3–20 characters and can only contain letters, numbers, and underscores."
+    }
+
+    if (activeTab === "signup" && !inValidate("email", email)) {
+      errors.emailError = "Please enter a valid email address."
+    }
+
+    if (!inValidate("password", password)) {
+      errors.passwordError = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character."
+    }
+
+    if (activeTab === "signup") {
+      if (password !== confirmPassword) {
+        errors.confirmPasswordError = "Password doesn't match !!"
+      }
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/userData?username=${username}`);
+      const formattedResponse = await response.json();
+      //  console.log("API response for userdata :", formattedResponse.length);
+      if (formattedResponse.length === 0) {
+        errors.apiError = "User doesn't exist, please Sign up.";
+      } else if (formattedResponse[0].password !== password) {
+        errors.apiError = "Password doesn't match, please try with correct password.";
+      }
+
+    } catch (error) {
+      errors.apiError = "Something went wrong ! please try again."
+    }
+
+    setErrorData(errors);
+
+    const hasError =
+      errors.usernameError ||
+      errors.emailError ||
+      errors.passwordError ||
+      errors.confirmPasswordError ||
+      errors.apiError;
+
+    if (hasError) {
+      setTimeout(() => {
+        resetErrorData();
+      }, 3000);
+
       return;
     }
+
+    const userData = `${username}${password}${activeTab}`;
+    const userDataHash = btoa(userData); // simple encoding for demo
+
+    // 🔹 Save to localStorage
+    localStorage.setItem("userData", JSON.stringify(userDataHash));
+
+    // 🔹 Update parent state
+    props.setUserDetails(userData);
+    setUser(userData); // Update context  
+
+    // 🔹 Navigate to products page
+    navigate("/products");
+
+  };
+
+  const resetErrorData = () => {
+    setErrorData({
+      usernameError: "",
+      emailError: "",
+      passwordError: "",
+      confirmPasswordError: "",
+      apiError: "",
+    })
   }
-
-  const userData = `${username}${password}${activeTab}`;
-  const userDataHash = btoa(userData); // simple encoding for demo
-
-  // 🔹 Save to localStorage
-  localStorage.setItem("userData", JSON.stringify(userDataHash));
-
-  // 🔹 Update parent state
-  props.setUserDetails(userData);
-  setUser(userData); // Update context  
-
-  // 🔹 Navigate to products page
-  navigate("/products");
-};
 
   const getTabClasses = (tab) => {
     const base = "w-1/2 py-3 text-center";
 
     if (tab === "login") {
-      return `${base} ${
-        activeTab === "login"
-          ? "LoginSignUpModal-activeTab border-r-2"
-          : "LoginSignUpModal-inActiveTab"
-      }`;
+      return `${base} ${activeTab === "login"
+        ? "LoginSignUpModal-activeTab border-r-2"
+        : "LoginSignUpModal-inActiveTab"
+        }`;
     }
 
-    return `${base} ${
-      activeTab === "signup"
-        ? "LoginSignUpModal-activeTab rounded-tl-3xl border-l-2"
-        : "LoginSignUpModal-inActiveTab"
-    }`;
+    return `${base} ${activeTab === "signup"
+      ? "LoginSignUpModal-activeTab rounded-tl-3xl border-l-2"
+      : "LoginSignUpModal-inActiveTab"
+      }`;
   };
 
   return (
@@ -119,6 +181,22 @@ const LoginSignUpModal = (props) => {
             className="LoginSignUpModal-input"
           />
 
+          {errorData.usernameError !== "" && <span className="text-red-600">{errorData.usernameError}</span>}
+
+          {activeTab === "signup" && (
+            <>
+              <input
+                type="text"
+                name="email"
+                placeholder="Type your email"
+                value={formData.email}
+                onChange={handleChange}
+                className="LoginSignUpModal-input"
+              />
+              {errorData.emailError !== "" && <span className="text-red-600">{errorData.emailError}</span>}
+            </>
+          )}
+
           <input
             type="password"
             name="password"
@@ -128,7 +206,9 @@ const LoginSignUpModal = (props) => {
             className="LoginSignUpModal-input"
           />
 
-          {activeTab === "signup" && (
+          {errorData.passwordError !== "" && <span className="text-red-600">{errorData.passwordError}</span>}
+
+          {activeTab === "signup" && (<>
             <input
               type="password"
               name="confirmPassword"
@@ -137,7 +217,11 @@ const LoginSignUpModal = (props) => {
               onChange={handleChange}
               className="LoginSignUpModal-input"
             />
+            {errorData.confirmPasswordError !== "" && <span className="text-red-600">{errorData.confirmPasswordError}</span>}
+          </>
           )}
+
+          {errorData.apiError !== "" && <span className="text-red-600">{errorData.apiError}</span>}
 
           <button
             className="LoginSignUpModal-button"
