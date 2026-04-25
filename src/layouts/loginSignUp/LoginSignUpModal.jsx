@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../../styles/styles.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
@@ -22,6 +22,7 @@ const LoginSignUpModal = (props) => {
     confirmPasswordError: "",
     apiError: "",
   });
+  const errorTimeoutRef = useRef(null);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -43,9 +44,19 @@ const LoginSignUpModal = (props) => {
     }));
   };
 
+  const triggerErrorReset = () => {
+    if (errorTimeoutRef.current) {
+      clearTimeout(errorTimeoutRef.current); // ✅ prevent stacking
+    }
+
+    errorTimeoutRef.current = setTimeout(() => {
+      resetErrorData();
+    }, 3000);
+  };
+
   const handleSubmit = async () => {
     const { username, email, password, confirmPassword } = formData;
-    let login = false;
+
     let errors = {
       usernameError: "",
       emailError: "",
@@ -54,98 +65,102 @@ const LoginSignUpModal = (props) => {
       apiError: "",
     };
 
+    // ======================
+    // 🔥 1. VALIDATION
+    // ======================
     if (!inValidate("username", username)) {
-      errors.usernameError =
-        "Username must be 3–20 characters and can only contain letters, numbers, and underscores.";
-    }
-
-    if (activeTab === "signup" && !inValidate("email", email)) {
-      errors.emailError = "Please enter a valid email address.";
+      errors.usernameError = "Invalid username";
     }
 
     if (!inValidate("password", password)) {
-      errors.passwordError =
-        "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.";
+      errors.passwordError = "Invalid password";
     }
 
     if (activeTab === "signup") {
-      if (password !== confirmPassword) {
-        errors.confirmPasswordError = "Password doesn't match !!";
+      if (!inValidate("email", email)) {
+        errors.emailError = "Invalid email";
       }
+
+      if (password !== confirmPassword) {
+        errors.confirmPasswordError = "Passwords do not match";
+      }
+    }
+
+    // 🚨 STOP if validation fails
+    const hasValidationError = Object.values(errors).some(Boolean);
+
+    if (hasValidationError) {
+      setErrorData(errors);
+      triggerErrorReset(); // ✅ controlled timeout
+      return;
     }
 
     try {
-      const formattedResponse = await apiService.get("login-user-data", {
+      // ======================
+      // 🔥 2. FETCH USER
+      // ======================
+      const users = await apiService.get("login-user-data", {
         params: { username },
       });
 
-      console.log("API response for userdata :", formattedResponse);
-      if (activeTab === "login" && formattedResponse.length === 0) {
-        errors.apiError = "User doesn't exist, please Sign up.";
-      } else if (
-        activeTab === "login" &&
-        formattedResponse[0].password !== password
-      ) {
-        errors.apiError =
-          "Password doesn't match, please try with correct password.";
-      } else if (activeTab === "signup" && formattedResponse.length !== 0) {
-        errors.apiError = "User already exists, please login.";
-      } else {
-        login = true;
+      // ======================
+      // 🔐 LOGIN FLOW
+      // ======================
+      if (activeTab === "login") {
+        if (!users.length) {
+          setErrorData({ ...errors, apiError: "User not found. Please signup." });
+          triggerErrorReset();
+          return;
+        }
+
+        if (users[0].password !== password) {
+          setErrorData({ ...errors, apiError: "Incorrect password." });
+          triggerErrorReset();
+          return;
+        }
+
+        return handleSuccess(username, "login");
       }
-    } catch (error) {
-      errors.apiError = "Something went wrong ! please try again.";
-    }
 
+      // ======================
+      // 🆕 SIGNUP FLOW
+      // ======================
+      if (activeTab === "signup") {
+        if (users.length > 0) {
+          setErrorData({
+            ...errors,
+            apiError: "User already exists. Please login...",
+          });
+          triggerErrorReset();
+          return;
+        }
 
-    setErrorData(errors);
-
-    const hasError =
-      errors.usernameError ||
-      errors.emailError ||
-      errors.passwordError ||
-      errors.confirmPasswordError ||
-      errors.apiError;
-
-    if (hasError) {
-      setTimeout(() => {
-        resetErrorData();
-      }, 3000);
-      login = false;
-      return;
-    }
-    console.log("Line 123");
-
-    if (activeTab === "signup" && login === true) {
-      const bodyData = {
-        username: username,
-        email: email,
-        password: password,
-      };
-      try {
-        const res = await apiService.post("login-user-data", {
-          body: bodyData,
+        await apiService.post("signup-user-data", {
+          body: { username, email, password },
         });
-        login = true;
-      } catch (error) {
-        login = false;
-        errors.apiError = "Something went wrong ! please try again.";
+
+        return handleSuccess(username, "signup");
       }
+
+    } catch (err) {
+      setErrorData({
+        ...errors,
+        apiError: "Something went wrong. Try again.",
+      });
+      triggerErrorReset();
     }
-    if (login === true) {
-      const userData = `${username}${password}${activeTab}`;
-      const userDataHash = btoa(userData); // simple encoding for demo
+  };
 
-      // 🔹 Save to localStorage
-      localStorage.setItem("userData", JSON.stringify(userDataHash));
+  const handleSuccess = (username, type) => {
+    const userData = `${username}:${type}`; // ❗ no password
+    const encoded = btoa(userData);
 
-      // 🔹 Update parent state
-      props.setUserDetails(userData);
-      setUser(userData); // Update context
+    localStorage.setItem("userData", JSON.stringify(encoded));
 
-      // 🔹 Navigate to products page
-      navigate("/products");
-    }
+    props.setUserDetails(userData);
+    setUser(userData);
+
+    navigate("/products");
   };
 
   const resetErrorData = () => {
@@ -182,6 +197,14 @@ const LoginSignUpModal = (props) => {
       : "LoginSignUpModal-inActiveTab"
       }`;
   };
+
+  useEffect(() => {
+    return () => {
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <div className="LoginSignUpModal">
