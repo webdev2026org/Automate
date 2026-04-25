@@ -5,6 +5,7 @@ import ProductFilter from "../productFilter/ProductFilter";
 import { useEffect, useState } from "react";
 import ItemCard from "../global/ItemCard";
 import useDebounce from "../../hooks/useDebounce";
+import apiService from "../../utils/apiService";
 
 const ProductListViewScreen = () => {
   const [payload, setPayload] = useState({
@@ -30,8 +31,8 @@ const ProductListViewScreen = () => {
   const apiCall = async () => {
     try {
       // json-server --watch constants/productData.json --port 4500
-      const response = await fetch(`http://localhost:4500/productData`)
-      let productData = await response.json()
+  
+      let productData = await apiService.get("product-list-data");
 
       console.log("First item keys:", productData[0]);
       console.log("Debounced search value:", debouncedValue);
@@ -45,17 +46,6 @@ const ProductListViewScreen = () => {
       const filterCategory = payload.category;
 
       if (filterCategory.length > 0) {
-        // let filtered = [];
-
-        // for (let i = 0; i < filterCategory.length; i++) {
-        //   for (let j = 0; j < productData.length; j++) {
-        //     if (productData[j].category === filterCategory[i]) {
-        //       filtered.push(productData[j]);
-        //     }
-        //   }
-        // }
-        // productData = filtered;
-
         productData = productData.filter(item =>
           filterCategory.includes(item.category)
         );
