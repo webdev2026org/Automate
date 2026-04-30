@@ -3,7 +3,7 @@ import "../../styles/starrating.css"
 import StarRating from "./StarRating"
 
 const ItemCard = ({
-  id,
+  _id,
   image,
   alt,
   category,
@@ -41,7 +41,7 @@ const ItemCard = ({
             <StarRating
               rating={Number(rating)}
               isInteractive={false} // change to true later
-              onRate={(value) => onRate && onRate(value, id)}
+              onRate={(value) => onRate && onRate(value, _id)}
             />
             <span className="text-sm text-gray-600">
               ({rating})

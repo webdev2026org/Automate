@@ -31,65 +31,26 @@ const ProductListViewScreen = () => {
   const apiCall = async () => {
     try {
       // json-server --watch constants/productData.json --port 4500
-  
-      let productData = await apiService.get("product-list-data");
 
-      console.log("First item keys:", productData[0]);
-      console.log("Debounced search value:", debouncedValue);
-
-      if (debouncedValue.trim()) {
-        productData = productData.filter((item) => (
-          item.title.toLowerCase().includes(debouncedValue.toLowerCase())
-        ));
-      }
-
-      const filterCategory = payload.category;
-
-      if (filterCategory.length > 0) {
-        productData = productData.filter(item =>
-          filterCategory.includes(item.category)
-        );
-      }
-
-      const filterBrands = payload.brand;
-
-      if(filterBrands.length > 0) {
-        productData = productData.filter((item) =>
-          filterBrands.includes(item.brand)
-        );
-      }
-
-      const str = payload.rating;
-      const num = Number(str.split(" ")[0]);
-
-      if (num) {
-        productData = productData.filter((item) => (
-          item.rating >= num
-        ))
-      }
-
-      const maxVal = payload.price[1];
-      const minVal = payload.price[0];
-
-      console.log("Min val is: ", minVal);
-      console.log("Max val is", maxVal);
-
-      if (maxVal) {
-        productData = productData.filter((item) => (
-          minVal <= Number(item.price.split("$")[1]) && Number(item.price.split("$")[1]) <= maxVal
-        ))
-      }
+      let productData = await apiService.get("product-list-data",
+        {
+          params: {
+            brand: payload.brand,
+            category: payload.category,
+            maxPrice: payload.price[1],
+            rating: payload.rating,
+            searchValue: debouncedValue, 
+            sortBy: "",
+          }
+        });
 
       console.log("Api Called : ", productData);
-      setCardData(productData);
+      setCardData(productData.data);
     } catch (error) {
       console.error("Fetch Error :", error);
     }
-    // console.log(payload, selectedSortBy, debouncedValue);
-    console.log("Filtered Category is :", payload.category);
-    console.log("Filtered Brand is: ", payload.brand);
-    console.log("Current ratings : ", payload.rating);
-    console.log("Price is:", payload.price);
+
+    console.log("payload is", payload);
 
   };
 
@@ -117,8 +78,8 @@ const ProductListViewScreen = () => {
           </div>
 
           <div className="product-cards-grid w-full grid gap-6 justify-items-center sm:grid-cols-2 lg:grid-cols-3">
-            {cardData.map((item) => (
-              <ItemCard key={item.id}
+            {cardData?.map((item) => (
+              <ItemCard key={item._id}
                 {...item}
                 onRate={handleRating}
               />

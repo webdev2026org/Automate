@@ -102,18 +102,18 @@ const LoginSignUpModal = (props) => {
       const users = await apiService.get("login-user-data", {
         params: { username },
       });
-
+      console.log("userdata:", users);
       // ======================
       // 🔐 LOGIN FLOW
       // ======================
       if (activeTab === "login") {
-        if (!users.length) {
+        if (!users) {
           setErrorData({ ...errors, apiError: "User not found. Please signup." });
           triggerErrorReset();
           return;
         }
 
-        if (users[0].password !== password) {
+        if (users.password !== password) {
           setErrorData({ ...errors, apiError: "Incorrect password." });
           triggerErrorReset();
           return;
@@ -126,7 +126,7 @@ const LoginSignUpModal = (props) => {
       // 🆕 SIGNUP FLOW
       // ======================
       if (activeTab === "signup") {
-        if (users.length > 0) {
+        if (users.message !== "User not found") {
           setErrorData({
             ...errors,
             apiError: "User already exists. Please login...",
