@@ -28,7 +28,7 @@ const ItemCard = ({
             <p className="item-card__category">{category}</p>
             <h2 className="item-card__title">{title}</h2>
           </div>
-          <span className="item-card__price">{price}</span>
+          <span className="item-card__price">${price}</span>
         </div>
 
         <p className="item-card__subtitle">{subtitle}</p>

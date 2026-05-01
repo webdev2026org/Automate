@@ -1,6 +1,6 @@
 export const endpoints = {
-  "login-user-data": "/users",
-  "signup-user-data": "/user",
+  "login-user-data": "/login",
+  "signup-user-data": "/register",
   "product-list-data": "/products",
   // add other logical names -> paths here
 };

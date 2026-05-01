@@ -97,24 +97,32 @@ const LoginSignUpModal = (props) => {
 
     try {
       // ======================
-      // 🔥 2. FETCH USER
-      // ======================
-      const users = await apiService.get("login-user-data", {
-        params: { username },
-      });
-      console.log("userdata:", users);
-      // ======================
       // 🔐 LOGIN FLOW
       // ======================
+     
       if (activeTab === "login") {
-        if (!users) {
-          setErrorData({ ...errors, apiError: "User not found. Please signup." });
+        const users = await apiService.post("login-user-data", {
+          body: {
+            username: username,
+            password: password,
+          },
+        });
+        console.log("userdata:", users);
+
+        if (users?.message === "User not found") {
+          setErrorData({
+            ...errors,
+            apiError: "User not found. Please signup.",
+          });
           triggerErrorReset();
           return;
         }
 
-        if (users.password !== password) {
-          setErrorData({ ...errors, apiError: "Incorrect password." });
+        if (users?.message === "Incorrect password") {
+          setErrorData({
+            ...errors,
+            apiError: "Incorrect password. Please try again.",
+          });
           triggerErrorReset();
           return;
         }
@@ -126,7 +134,10 @@ const LoginSignUpModal = (props) => {
       // 🆕 SIGNUP FLOW
       // ======================
       if (activeTab === "signup") {
-        if (users.message !== "User not found") {
+        const signUpUser = await apiService.post("signup-user-data", {
+          body: { username, email, password },
+        });
+        if (signUpUser?.message === "User already exists") {
           setErrorData({
             ...errors,
             apiError: "User already exists. Please login...",
@@ -135,13 +146,8 @@ const LoginSignUpModal = (props) => {
           return;
         }
 
-        await apiService.post("signup-user-data", {
-          body: { username, email, password },
-        });
-
         return handleSuccess(username, "signup");
       }
-
     } catch (err) {
       setErrorData({
         ...errors,
@@ -186,16 +192,18 @@ const LoginSignUpModal = (props) => {
     const base = "w-1/2 py-3 text-center";
 
     if (tab === "login") {
-      return `${base} ${activeTab === "login"
-        ? "LoginSignUpModal-activeTab border-r-2"
-        : "LoginSignUpModal-inActiveTab"
-        }`;
+      return `${base} ${
+        activeTab === "login"
+          ? "LoginSignUpModal-activeTab border-r-2"
+          : "LoginSignUpModal-inActiveTab"
+      }`;
     }
 
-    return `${base} ${activeTab === "signup"
-      ? "LoginSignUpModal-activeTab rounded-tl-3xl border-l-2"
-      : "LoginSignUpModal-inActiveTab"
-      }`;
+    return `${base} ${
+      activeTab === "signup"
+        ? "LoginSignUpModal-activeTab rounded-tl-3xl border-l-2"
+        : "LoginSignUpModal-inActiveTab"
+    }`;
   };
 
   useEffect(() => {
