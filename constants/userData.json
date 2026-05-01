@@ -1,35 +1,71 @@
 {
   "userData": [
     {
-      "id": 1,
+      "id": "1",
       "username": "john_doe",
       "email": "john.doe@gmail.com",
       "password": "John@123"
     },
     {
-      "id": 2,
-      "username": "sarah_lee",
-      "email": "sarah.lee@yahoo.com",
-      "password": "Sarah@456"
+      "email": "suprakashballav1997@gmail.com",
+      "password": "Pand0ra!123",
+      "username": "Suprakash",
+      "id": "QPDWMlcXANw"
     },
     {
-      "id": 3,
-      "username": "mike_ross",
-      "email": "mike.ross@outlook.com",
-      "password": "Mike@789"
+      "username": "Rakesh",
+      "email": "rakeshkarmakar@gmail.com",
+      "password": "Saranya@123",
+      "id": "JGYT3hoe8-8"
     },
     {
-      "id": 4,
-      "username": "emma_watson",
-      "email": "emma.watson@gmail.com",
-      "password": "Emma@321"
+      "username": "john_doe",
+      "email": "john.doe@gmail.com",
+      "password": "John@123",
+      "id": "ytx5DGnKf04"
     },
     {
-      "id": 5,
-      "username": "alex_smith",
-      "email": "alex.smith@protonmail.com",
-      "password": "Alex@654"
+      "username": "john_doe",
+      "email": "john.doe@gmail.com",
+      "password": "John@1234",
+      "id": "0ygxoFlSDKM"
+    },
+    {
+      "username": "john_doe",
+      "email": "john.doe@gmail.com",
+      "password": "John@123",
+      "id": "cz23QFDnQ3Q"
+    },
+    {
+      "username": "john_doe",
+      "email": "suprakashballav1997@gmail.com",
+      "password": "Pand0ra!123",
+      "id": "aXJ-cFskGds"
+    },
+    {
+      "username": "john_doe",
+      "email": "suprakashballav1997@gmail.com",
+      "password": "Pand0ra!123",
+      "id": "kyG5McXLJBU"
+    },
+    {
+      "username": "YEST4",
+      "email": "TEST4@gmail.com",
+      "password": "John@123",
+      "id": "ZDmBtLyE5VQ"
+    },
+    {
+      "username": "TEST5",
+      "email": "TEST5@gmail.com",
+      "password": "John@123",
+      "id": "TwH0kA2Mwqk"
+    },
+    {
+      "username": "John_doe",
+      "email": "suprakashballav1997@gmail.com",
+      "password": "John@123",
+      "id": "67SY0XSvM1o"
     }
   ],
-   "$schema": "./node_modules/json-server/schema.json"
+  "$schema": "./node_modules/json-server/schema.json"
 }

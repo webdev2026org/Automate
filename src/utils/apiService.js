@@ -3,7 +3,7 @@ import { endpoints } from "./endpoints";
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 
 const buildUrl = (path, params) => {
-  const url = new URL(`${BASE_URL}${path}`);
+  const url = new URL(`${BASE_URL}/api${path}`);
   if (params) {
     Object.keys(params).forEach((k) => {
       if (params[k] !== undefined && params[k] !== null) url.searchParams.append(k, params[k]);
