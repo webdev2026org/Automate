@@ -23,20 +23,26 @@ const ProductFilter = ({ setPayload }) => {
         setIsApplied(true);
         // alert("Filters applied !!");
         setPayload({
-          category: selectedCategories,
-          brand:selectedBrands,
-          rating:rating,
-          price:price,
+            category: selectedCategories,
+            brand: selectedBrands,
+            rating: rating,
+            price: price,
         })
     };
 
     const resetFilters = () => {
+
         setSelectedCategories([]);
         setSelectedBrands([]);
         setRating("");
         setPrice([25, 999]);
         setIsApplied(false);
-
+        setPayload({
+            category: [],
+            brand: [],
+            rating: "",
+            price: [25, 999],
+        })
     };
 
 
