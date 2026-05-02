@@ -7,6 +7,7 @@ import ItemCard from "../global/ItemCard";
 import useDebounce from "../../hooks/useDebounce";
 import apiService from "../../utils/apiService";
 import Pagination from "../global/Pagination";
+import "../../styles/ProductListViewScreen.css";
 
 const ProductListViewScreen = () => {
   const [payload, setPayload] = useState({
@@ -64,8 +65,8 @@ const ProductListViewScreen = () => {
   }, [payload, selectedSortBy, debouncedValue, currentPage]);
 
   return (
-    <div className="app-container flex flex-col h-full">
-      <div className="nav-container flex-1">
+    <div className="app-container">
+      <div className="nav-container">
         <Navbar
           pageIcon="store"
           showSearchBar={true}
@@ -75,27 +76,29 @@ const ProductListViewScreen = () => {
           userIconType="user-icon"
           setSearchByValue={setSearchByValue}
         />
-        <SubNavbar
+        <SubNavbar  
           selectedSortBy={selectedSortBy}
           setSelectedSortBy={setSelectedSortBy}
         />
 
         <main className="flex items-stretch px-6 py-8 gap-6">
-          <div className="filter w-80 bg-white self-stretch">
+          <div className="filter">
             <ProductFilter setPayload={setPayload} />
           </div>
 
-          <div className="product-cards-grid w-full grid gap-6 justify-items-center sm:grid-cols-2 lg:grid-cols-3">
+          <div className="product-cards-grid">
             {cardData?.map((item) => (
               <ItemCard key={item._id} {...item} onRate={handleRating} />
             ))}
 
             {/* Pagination */}
-            <Pagination
+           <div className="pagination-wrapper">
+             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={setCurrentPage}
             />
+           </div>
           </div>
         </main>
       </div>
