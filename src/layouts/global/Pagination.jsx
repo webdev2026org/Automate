@@ -37,7 +37,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={handlePrev}
         disabled={currentPage === 1}
-        className="px-3 py-1 border rounded"
+        className="px-3 py-1 border rounded disabled:opacity-40 disabled:cursor-not-allowed"
       >
         Prev
       </button>
@@ -63,7 +63,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        className="px-3 py-1 border rounded"
+        className="px-3 py-1 border rounded disabled:opacity-40 disabled:cursor-not-allowed"
       >
         Next
       </button>

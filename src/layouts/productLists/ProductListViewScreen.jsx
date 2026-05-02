@@ -43,7 +43,7 @@ const ProductListViewScreen = () => {
           maxPrice: payload.price[1],
           rating: payload.rating,
           searchValue: debouncedValue,
-          sortBy: "",
+          sortBy: selectedSortBy,
           page: currentPage,
           limit: 10,
         },
