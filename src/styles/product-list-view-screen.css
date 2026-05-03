@@ -15,7 +15,3 @@
 .product-cards-grid {
   @apply w-full grid gap-6 justify-items-center sm:grid-cols-2 lg:grid-cols-3;
 }
-
-.pagination-wrapper {
-  @apply col-span-full flex justify-center w-full;
-}

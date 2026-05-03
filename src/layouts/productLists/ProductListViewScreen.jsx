@@ -7,7 +7,9 @@ import ItemCard from "../global/ItemCard";
 import useDebounce from "../../hooks/useDebounce";
 import apiService from "../../utils/apiService";
 import Pagination from "../global/Pagination";
-import "../../styles/ProductListViewScreen.css";
+import LimitSelector from "../global/LimitSelector";
+import "../../styles/product-list-view-screen.css";
+import "../../styles/pagination.css";
 
 const ProductListViewScreen = () => {
   const [payload, setPayload] = useState({
@@ -21,12 +23,17 @@ const ProductListViewScreen = () => {
   const [cardData, setCardData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [limit, setLimit] = useState(10);
   const debouncedValue = useDebounce(searchByValue, 500);
 
   const handleRating = (value, productId) => {
     console.log("Rated:", value, "Product:", productId);
   };
 
+  const handleLimitChange = (newLimit) => {
+    setLimit(newLimit);
+    setCurrentPage(1); // important
+  };
   // ✅ Reset page when filters/search/sort change
   useEffect(() => {
     setCurrentPage(1);
@@ -45,7 +52,7 @@ const ProductListViewScreen = () => {
           searchValue: debouncedValue,
           sortBy: selectedSortBy,
           page: currentPage,
-          limit: 10,
+          limit: limit,
         },
       });
 
@@ -62,7 +69,7 @@ const ProductListViewScreen = () => {
 
   useEffect(() => {
     apiCall();
-  }, [payload, selectedSortBy, debouncedValue, currentPage]);
+  }, [payload, selectedSortBy, debouncedValue, currentPage, limit]);
 
   return (
     <div className="app-container">
@@ -76,7 +83,7 @@ const ProductListViewScreen = () => {
           userIconType="user-icon"
           setSearchByValue={setSearchByValue}
         />
-        <SubNavbar  
+        <SubNavbar
           selectedSortBy={selectedSortBy}
           setSelectedSortBy={setSelectedSortBy}
         />
@@ -86,20 +93,28 @@ const ProductListViewScreen = () => {
             <ProductFilter setPayload={setPayload} />
           </div>
 
-          <div className="product-cards-grid">
+          <div className="page-container">
+              <div className="product-cards-grid min-h-200">
             {cardData?.map((item) => (
               <ItemCard key={item._id} {...item} onRate={handleRating} />
             ))}
-
-            {/* Pagination */}
-           <div className="pagination-wrapper">
-             <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
-            />
-           </div>
+ 
           </div>
+               <div className="pagination-wrapper">
+              <div className="flex flex-row">
+                <LimitSelector
+                  limit={limit}
+                  onLimitChange={handleLimitChange}
+                />
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              </div>
+            </div>
+          </div>
+        
         </main>
       </div>
       <Footer isLoggedIn={true} />
