@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.pagination-wrapper {
+  @apply col-span-full flex justify-center w-full;
+}
