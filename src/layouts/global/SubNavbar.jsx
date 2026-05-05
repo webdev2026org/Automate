@@ -18,13 +18,13 @@ const SubNavbar = ({
 
         <div className="flex items-center gap-3">
           <button
-            className="flex items-center gap-1 px-3 py-1 rounded-md bg-blue-500 text-white text-sm font-medium hover:bg-blue-600 transition cursor-pointer"
+            className="newProduct"
             onClick={onCreateClick}
           >
             + Create New Product
           </button>
           <button
-            className="px-3 py-1 rounded-md border border-blue-500 text-blue-500 text-sm font-medium hover:bg-blue-50 transition cursor-pointer"
+            className="myProduct"
             onClick={onMyProductsClick}
           >
             My Products
