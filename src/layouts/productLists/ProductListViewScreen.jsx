@@ -8,6 +8,7 @@ import useDebounce from "../../hooks/useDebounce";
 import apiService from "../../utils/apiService";
 import Pagination from "../global/Pagination";
 import LimitSelector from "../global/LimitSelector";
+import CreateProductModal from "../global/CreateProductModal"; 
 import "../../styles/product-list-view-screen.css";
 import "../../styles/pagination.css";
 
@@ -24,7 +25,13 @@ const ProductListViewScreen = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [localProducts, setLocalProducts] = useState([]);
   const debouncedValue = useDebounce(searchByValue, 500);
+
+  const handleAddProduct = (newProduct) => {
+    setLocalProducts((prev) => [newProduct, ...prev]);
+  };
 
   const handleRating = (value, productId) => {
     console.log("Rated:", value, "Product:", productId);
@@ -86,6 +93,7 @@ const ProductListViewScreen = () => {
         <SubNavbar
           selectedSortBy={selectedSortBy}
           setSelectedSortBy={setSelectedSortBy}
+          onCreateClick={() => setIsModalOpen(true)}
         />
 
         <main className="flex items-stretch px-6 py-8 gap-6">
@@ -94,13 +102,13 @@ const ProductListViewScreen = () => {
           </div>
 
           <div className="page-container">
-              <div className="product-cards-grid min-h-200">
-            {cardData?.map((item) => (
-              <ItemCard key={item._id} {...item} onRate={handleRating} />
-            ))}
- 
-          </div>
-               <div className="pagination-wrapper">
+            <div className="product-cards-grid min-h-200">
+              {cardData?.map((item) => (
+                <ItemCard key={item._id} {...item} onRate={handleRating} />
+              ))}
+
+            </div>
+            <div className="pagination-wrapper">
               <div className="flex flex-row">
                 <LimitSelector
                   limit={limit}
@@ -114,9 +122,14 @@ const ProductListViewScreen = () => {
               </div>
             </div>
           </div>
-        
+
         </main>
       </div>
+      <CreateProductModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAddProduct={handleAddProduct}
+      />
       <Footer isLoggedIn={true} />
     </div>
   );
