@@ -51,10 +51,6 @@ html,body, #root {
   @apply flex items-center justify-between gap-8
 }
 
-.viewMode {
-  @apply flex gap-8;
-}
-
 .newProduct {
   @apply flex items-center gap-1 px-3 py-1 rounded-md bg-black text-white text-sm font-medium hover:bg-gray-800 transition cursor-pointer;
 }

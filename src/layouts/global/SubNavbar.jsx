@@ -10,11 +10,6 @@ const SubNavbar = ({
   return (
     <nav className="subNavbar">
       <div className="subNavbar-left-section">
-        {/* View-Mode */}
-        <div className="viewMode">
-          <input type="button" className="Grid-view bg-transparent border-none" value="Grid" />
-          <input type="button" className="List-View bg-transparent border-none" value="List" />
-        </div>
 
         <div className="flex items-center gap-3">
           <button

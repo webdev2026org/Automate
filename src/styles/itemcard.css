@@ -5,7 +5,7 @@
 }
 
 .item-card__image {
-  @apply w-full h-52 overflow-hidden bg-slate-50;
+  @apply relative w-full h-52 overflow-hidden bg-slate-50;
 }
 
 .item-card__image img {
@@ -68,3 +68,24 @@
   @apply bg-white text-slate-900 border border-slate-200 hover:bg-slate-50;
 }
 
+/* ✅ Hover overlay */
+.item-card__overlay {
+  @apply absolute inset-0 bg-black/40 flex items-center justify-center gap-3
+         opacity-0 transition-opacity duration-200;
+}
+
+.item-card__image:hover .item-card__overlay {
+  @apply opacity-100;
+}
+
+.item-card__overlay-btn {
+  @apply px-4 py-2 rounded-2xl text-sm font-semibold transition duration-200 cursor-pointer;
+}
+
+.item-card__overlay-btn--edit {
+  @apply bg-white text-slate-900 hover:bg-slate-100;
+}
+
+.item-card__overlay-btn--delete {
+  @apply bg-slate-900 text-white hover:bg-slate-950;
+}
