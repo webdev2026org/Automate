@@ -56,11 +56,11 @@ html,body, #root {
 }
 
 .newProduct {
-  @apply flex items-center gap-1 px-3 py-1 rounded-md bg-blue-500 text-white text-sm font-medium hover:bg-blue-600 transition cursor-pointer;
+  @apply flex items-center gap-1 px-3 py-1 rounded-md bg-black text-white text-sm font-medium hover:bg-gray-800 transition cursor-pointer;
 }
 
 .myProduct {
-  @apply px-3 py-1 rounded-md border border-blue-500 text-blue-500 text-sm font-medium hover:bg-blue-50 transition cursor-pointer;
+  @apply px-3 py-1 rounded-md border border-black text-black text-sm font-medium hover:bg-gray-100 transition cursor-pointer;
 }
 .btnView {
   @apply px-3 py-1 rounded-md border border-gray-500 font-medium text-gray-700 bg-white hover:bg-gray-100 transition;

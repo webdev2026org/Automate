@@ -26,11 +26,15 @@ const ProductListViewScreen = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [limit, setLimit] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [localProducts, setLocalProducts] = useState([]);
   const debouncedValue = useDebounce(searchByValue, 500);
 
-  const handleAddProduct = (newProduct) => {
-    setLocalProducts((prev) => [newProduct, ...prev]);
+ const handleAddProduct = async (newProduct) => {
+    try {
+      const created = await apiService.post("create-product", { body: newProduct });
+      setCardData((prev) => [created, ...prev]);
+    } catch (err) {
+      console.error("Failed to add product", err);
+    }
   };
 
   const handleRating = (value, productId) => {
