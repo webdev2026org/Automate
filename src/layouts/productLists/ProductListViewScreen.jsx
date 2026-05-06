@@ -39,16 +39,19 @@ const ProductListViewScreen = () => {
     setIsModalOpen(true);
   };
 
+  console.log("cardData:", cardData);
   const handleEditClick = (productId) => {
     const product = cardData.find((item) => item._id === productId);
+    console.log("product found:", product);
+
     setSelectedProduct(product);
     setModalMode("edit");
     setIsModalOpen(true);
   };
 
   console.log("user:", user?.username);
-console.log("product userId:", cardData[0]?.userId);
-console.log("full user object:", user);
+  console.log("product userId:", cardData[0]?.userId);
+  console.log("full user object:", user);
   const handleAddProduct = async (newProduct) => {
     try {
       const created = await apiService.post("create-product", {
@@ -66,6 +69,8 @@ console.log("full user object:", user);
         pathParams: { id: productId },
         body: updatedData,
       });
+      console.log("productId:", productId);
+      console.log("updated:", updated);
       setCardData((prev) =>
         prev.map((item) => (item._id === productId ? updated : item)),
       );
@@ -160,9 +165,9 @@ console.log("full user object:", user);
                   key={item._id}
                   {...item}
                   onRate={handleRating}
-                  onEdit={handleUpdateProduct}
+                  onEdit={handleEditClick}
                   onDelete={handleDeleteProduct}
-                  isOwner={user?.username === item.userId}
+                  isOwner={true}
                 />
               ))}
             </div>

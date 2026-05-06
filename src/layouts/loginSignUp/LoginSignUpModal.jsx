@@ -99,7 +99,7 @@ const LoginSignUpModal = (props) => {
       // ======================
       // 🔐 LOGIN FLOW
       // ======================
-     
+
       if (activeTab === "login") {
         const users = await apiService.post("login-user-data", {
           body: {
@@ -161,10 +161,10 @@ const LoginSignUpModal = (props) => {
     const userData = `${username}:${type}`; // ❗ no password
     const encoded = btoa(userData);
 
-    localStorage.setItem("userData", JSON.stringify(encoded));
+    localStorage.setItem("userData", encoded);
 
-    props.setUserDetails(userData);
-    setUser(userData);
+    props.setUserDetails({ username, type });
+    setUser({ username, type });
 
     navigate("/products");
   };

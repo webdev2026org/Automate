@@ -46,6 +46,10 @@ const CreateProductModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("MODE:", mode);
+    console.log("initialData:", initialData);
+    console.log("initialData._id:", initialData?._id);
+    console.log("formData:", formData);
     if (mode === "edit") {
       await onEditProduct(initialData._id, formData);
     } else {
