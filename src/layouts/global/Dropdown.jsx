@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 const Dropdown = ({
   options = [],
   defaultValue = "",
+  width = "auto",
   onChange = () => {},
   label = "",
 }) => {
@@ -35,6 +36,7 @@ const Dropdown = ({
       <div
         className="inline-flex items-center justify-between border px-3 py-1  rounded-md cursor-pointer bg-white min-w-[140px]"
         onClick={() => setIsOpen(!isOpen)}
+        style={{ width }}
       >
         {selected}
         <span className="ml-2">▾</span>

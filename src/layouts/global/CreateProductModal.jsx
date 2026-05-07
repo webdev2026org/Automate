@@ -166,6 +166,7 @@ const CreateProductModal = ({
               <Dropdown
                 options={STOCK_OPTIONS}
                 defaultValue={formData.stockText}
+                width="100%"
                 onChange={(val) =>
                   setFormData((prev) => ({ ...prev, stockText: val }))
                 }
