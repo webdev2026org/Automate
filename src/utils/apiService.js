@@ -2,8 +2,17 @@ import { endpoints } from "./endpoints";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 
-const buildUrl = (path, params) => {
-  const url = new URL(`${BASE_URL}/api${path}`);
+const buildUrl = (path, params, pathParams) => {
+  let resolvedPath = path;
+
+  // ✅ Replace path params like :id
+  if (pathParams) {
+    Object.keys(pathParams).forEach((k) => {
+      resolvedPath = resolvedPath.replace(`:${k}`, pathParams[k]);
+    });
+  }
+
+  const url = new URL(`${BASE_URL}/api${resolvedPath}`);
   if (params) {
     Object.keys(params).forEach((k) => {
       if (params[k] !== undefined && params[k] !== null) url.searchParams.append(k, params[k]);
@@ -12,11 +21,11 @@ const buildUrl = (path, params) => {
   return url.toString();
 };
 
-const request = async (method, endpointKey, { params, body, headers } = {}) => {
+const request = async (method, endpointKey, { params, body, headers, pathParams } = {}) => {
   const path = endpoints[endpointKey];
   if (!path) throw new Error(`Unknown endpoint key: ${endpointKey}`);
 
-  const url = buildUrl(path, params);
+  const url = buildUrl(path, params, pathParams);
   const opts = {
     method,
     headers: { "Content-Type": "application/json", ...(headers || {}) },

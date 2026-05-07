@@ -1,6 +1,6 @@
-import "../../styles/itemcard.css"
-import "../../styles/starrating.css"
-import StarRating from "./StarRating"
+import "../../styles/itemcard.css";
+import "../../styles/starrating.css";
+import StarRating from "./StarRating";
 
 const ItemCard = ({
   _id,
@@ -14,12 +14,34 @@ const ItemCard = ({
   rating,
   note,
   onRate,
-  brand
+  brand,
+  isOwner,
+  onEdit,
+  onDelete,
 }) => {
   return (
     <article className="item-card">
       <div className="item-card__image">
         <img src={image} alt={alt} />
+
+        {isOwner && (
+          <div className="item-card__overlay">
+            <button
+              type="button"
+              className="item-card__overlay-btn item-card__overlay-btn--edit"
+              onClick={() => onEdit && onEdit(_id)}
+            >
+              ✏️ Edit
+            </button>
+            <button
+              type="button"
+              className="item-card__overlay-btn item-card__overlay-btn--delete"
+              onClick={() => onDelete && onDelete(_id)}
+            >
+              🗑️ Delete
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="item-card__body">
@@ -43,25 +65,29 @@ const ItemCard = ({
               isInteractive={false} // change to true later
               onRate={(value) => onRate && onRate(value, _id)}
             />
-            <span className="text-sm text-gray-600">
-              ({rating})
-            </span>
+            <span className="text-sm text-gray-600">({rating})</span>
           </div>
         </div>
 
         <p className="item-card__note">{note}</p>
 
         <div className="item-card__actions">
-          <button type="button" className="item-card__button item-card__button--secondary">
+          <button
+            type="button"
+            className="item-card__button item-card__button--secondary"
+          >
             Quick view
           </button>
-          <button type="button" className="item-card__button item-card__button--primary">
+          <button
+            type="button"
+            className="item-card__button item-card__button--primary"
+          >
             Add to cart
           </button>
         </div>
       </div>
     </article>
-  )
-}
+  );
+};
 
-export default ItemCard
+export default ItemCard;

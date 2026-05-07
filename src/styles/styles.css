@@ -51,33 +51,22 @@ html,body, #root {
   @apply flex items-center justify-between gap-8
 }
 
-.viewMode {
-  @apply flex gap-8;
+.newProduct {
+  @apply flex items-center gap-1 px-3 py-1 rounded-md bg-black text-white text-sm font-medium hover:bg-gray-800 transition cursor-pointer;
 }
 
+.myProduct {
+  @apply px-3 py-1 rounded-md border border-black text-black text-sm font-medium hover:bg-gray-100 transition cursor-pointer;
+}
 .btnView {
-  @apply px-3 py-1 rounded-md border border-gray-300 font-medium text-gray-700 bg-white hover:bg-gray-100 transition;
+  @apply px-3 py-1 rounded-md border border-gray-500 font-medium text-gray-700 bg-white hover:bg-gray-100 transition;
 }
 
 .btnView.active {
   @apply bg-black text-white border-black;
 }
 
-.textSize {
-  @apply flex items-center gap-6 text-sm text-gray-700;
-}
 
-.textSize span {
-  @apply font-medium;
-}
-
-.textSize label {
-  @apply flex items-center gap-1 cursor-pointer;
-}
-
-.textSize input[type="radio"] {
-  @apply accent-black;
-}
 
 .sortBy {
   @apply flex items-center gap-2;

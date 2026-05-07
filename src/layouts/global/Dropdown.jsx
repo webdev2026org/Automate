@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 const Dropdown = ({
   options = [],
   defaultValue = "",
+  width = "auto",
   onChange = () => {},
   label = "",
 }) => {
@@ -33,8 +34,9 @@ const Dropdown = ({
 
       {/* Trigger */}
       <div
-        className="inline-flex items-center justify-between border px-3 py-1 cursor-pointer bg-white min-w-[140px]"
+        className="inline-flex items-center justify-between border px-3 py-1  rounded-md cursor-pointer bg-white min-w-[140px]"
         onClick={() => setIsOpen(!isOpen)}
+        style={{ width }}
       >
         {selected}
         <span className="ml-2">▾</span>
@@ -42,7 +44,7 @@ const Dropdown = ({
 
       {/* Options */}
       {isOpen && (
-        <div className="absolute mt-1 w-full border bg-white shadow-md z-10">
+        <div className="absolute mt-1 w-full border bg-white shadow-md z-10 rounded-md overflow-hidden">
           {options.map((option) => (
             <div
               key={option}

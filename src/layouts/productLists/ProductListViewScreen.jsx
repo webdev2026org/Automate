@@ -8,10 +8,14 @@ import useDebounce from "../../hooks/useDebounce";
 import apiService from "../../utils/apiService";
 import Pagination from "../global/Pagination";
 import LimitSelector from "../global/LimitSelector";
+import CreateProductModal from "../global/CreateProductModal";
+import { useAuth } from "../../auth/AuthContext";
 import "../../styles/product-list-view-screen.css";
 import "../../styles/pagination.css";
 
 const ProductListViewScreen = () => {
+  const { user } = useAuth();
+
   const [payload, setPayload] = useState({
     category: [],
     brand: [],
@@ -24,7 +28,67 @@ const ProductListViewScreen = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState("create");
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const debouncedValue = useDebounce(searchByValue, 500);
+
+  const handleCreateClick = () => {
+    setSelectedProduct(null);
+    setModalMode("create");
+    setIsModalOpen(true);
+  };
+
+  console.log("cardData:", cardData);
+  const handleEditClick = (productId) => {
+    const product = cardData.find((item) => item._id === productId);
+    console.log("product found:", product);
+
+    setSelectedProduct(product);
+    setModalMode("edit");
+    setIsModalOpen(true);
+  };
+
+  console.log("user:", user?.username);
+  console.log("product userId:", cardData[0]?.userId);
+  console.log("full user object:", user);
+  const handleAddProduct = async (newProduct) => {
+    try {
+      const created = await apiService.post("create-product", {
+        body: { ...newProduct, userId: user.username },
+      });
+      setCardData((prev) => [created, ...prev]);
+    } catch (err) {
+      console.error("Failed to add product", err);
+    }
+  };
+
+  const handleUpdateProduct = async (productId, updatedData) => {
+    try {
+      const updated = await apiService.put("update-product", {
+        pathParams: { id: productId },
+        body: updatedData,
+      });
+      console.log("productId:", productId);
+      console.log("updated:", updated);
+      setCardData((prev) =>
+        prev.map((item) => (item._id === productId ? updated : item)),
+      );
+    } catch (err) {
+      console.error("Failed to update product", err);
+    }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      await apiService.del("delete-product", {
+        pathParams: { id: productId },
+      });
+      setCardData((prev) => prev.filter((item) => item._id !== productId));
+    } catch (err) {
+      console.error("Failed to delete product", err);
+    }
+  };
 
   const handleRating = (value, productId) => {
     console.log("Rated:", value, "Product:", productId);
@@ -86,6 +150,7 @@ const ProductListViewScreen = () => {
         <SubNavbar
           selectedSortBy={selectedSortBy}
           setSelectedSortBy={setSelectedSortBy}
+          onCreateClick={handleCreateClick}
         />
 
         <main className="flex items-stretch px-6 py-8 gap-6">
@@ -94,13 +159,19 @@ const ProductListViewScreen = () => {
           </div>
 
           <div className="page-container">
-              <div className="product-cards-grid min-h-200">
-            {cardData?.map((item) => (
-              <ItemCard key={item._id} {...item} onRate={handleRating} />
-            ))}
- 
-          </div>
-               <div className="pagination-wrapper">
+            <div className="product-cards-grid min-h-200">
+              {cardData?.map((item) => (
+                <ItemCard
+                  key={item._id}
+                  {...item}
+                  onRate={handleRating}
+                  onEdit={handleEditClick}
+                  onDelete={handleDeleteProduct}
+                  isOwner={true}
+                />
+              ))}
+            </div>
+            <div className="pagination-wrapper">
               <div className="flex flex-row">
                 <LimitSelector
                   limit={limit}
@@ -114,9 +185,16 @@ const ProductListViewScreen = () => {
               </div>
             </div>
           </div>
-        
         </main>
       </div>
+      <CreateProductModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        mode={modalMode}
+        initialData={selectedProduct}
+        onAddProduct={handleAddProduct}
+        onEditProduct={handleUpdateProduct}
+      />
       <Footer isLoggedIn={true} />
     </div>
   );
