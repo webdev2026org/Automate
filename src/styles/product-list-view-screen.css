@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+.app-container {
+  @apply flex flex-col h-full;
+}
+
+.nav-container {
+  @apply flex-1;
+}
+
+.filter {
+  @apply w-80 bg-white self-stretch;
+}
+
+.product-cards-grid {
+  @apply w-full grid gap-6 justify-items-center sm:grid-cols-2 lg:grid-cols-3;
+}

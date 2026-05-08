@@ -12,8 +12,9 @@ const Login = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [userDetails, setUserDetails] = useState({
     username: "",
+    email: "",
     password: "",
-    type: "", // login / signup
+    type: "", 
   });
 
    const handleLoginClose = () => {
@@ -22,7 +23,6 @@ const Login = () => {
     }
     }
 
-  // Carousel slides data for the login page
   const carouselSlides = [
     {
       id: 1,

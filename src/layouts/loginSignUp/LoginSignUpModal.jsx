@@ -1,28 +1,39 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import "../../styles/styles.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
+import { inValidate } from "../../utils/validate";
+import apiService from "../../utils/apiService";
 
 const LoginSignUpModal = (props) => {
   const { setUser } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login");
-
   const [formData, setFormData] = useState({
     username: "",
+    email: "",
     password: "",
     confirmPassword: "",
   });
+  const [errorData, setErrorData] = useState({
+    usernameError: "",
+    emailError: "",
+    passwordError: "",
+    confirmPasswordError: "",
+    apiError: "",
+  });
+  const errorTimeoutRef = useRef(null);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+    resetUser();
+    resetErrorData();
   };
 
   const handleLoginClose = () => {
     props.onLoginClose();
   };
 
-  // 🔹 handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -32,34 +43,137 @@ const LoginSignUpModal = (props) => {
     }));
   };
 
-  const handleSubmit = () => {
-  const { username, password, confirmPassword } = formData;
+  const triggerErrorReset = () => {
+    if (errorTimeoutRef.current) {
+      clearTimeout(errorTimeoutRef.current);
+    }
 
-  if (!username || !password) {
-    alert("Please fill all fields");
-    return;
-  }
+    errorTimeoutRef.current = setTimeout(() => {
+      resetErrorData();
+    }, 3000);
+  };
 
-  if (activeTab === "signup") {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
+  const handleSubmit = async () => {
+    const { username, email, password, confirmPassword } = formData;
+
+    let errors = {
+      usernameError: "",
+      emailError: "",
+      passwordError: "",
+      confirmPasswordError: "",
+      apiError: "",
+    };
+
+    if (!inValidate("username", username)) {
+      errors.usernameError = "Invalid username";
+    }
+
+    if (!inValidate("password", password)) {
+      errors.passwordError = "Invalid password";
+    }
+
+    if (activeTab === "signup") {
+      if (!inValidate("email", email)) {
+        errors.emailError = "Invalid email";
+      }
+
+      if (password !== confirmPassword) {
+        errors.confirmPasswordError = "Passwords do not match";
+      }
+    }
+
+    const hasValidationError = Object.values(errors).some(Boolean);
+
+    if (hasValidationError) {
+      setErrorData(errors);
+      triggerErrorReset();
       return;
     }
-  }
 
-  const userData = `${username}${password}${activeTab}`;
-  const userDataHash = btoa(userData); // simple encoding for demo
+    try {
+      if (activeTab === "login") {
+        const users = await apiService.post("login-user-data", {
+          body: {
+            username: username,
+            password: password,
+          },
+        });
 
-  // 🔹 Save to localStorage
-  localStorage.setItem("userData", JSON.stringify(userDataHash));
+        if (users?.message === "User not found") {
+          setErrorData({
+            ...errors,
+            apiError: "User not found. Please signup.",
+          });
+          triggerErrorReset();
+          return;
+        }
 
-  // 🔹 Update parent state
-  props.setUserDetails(userData);
-  setUser(userData); // Update context  
+        if (users?.message === "Incorrect password") {
+          setErrorData({
+            ...errors,
+            apiError: "Incorrect password. Please try again.",
+          });
+          triggerErrorReset();
+          return;
+        }
 
-  // 🔹 Navigate to products page
-  navigate("/products");
-};
+        return handleSuccess(username, "login");
+      }
+
+      if (activeTab === "signup") {
+        const signUpUser = await apiService.post("signup-user-data", {
+          body: { username, email, password },
+        });
+        if (signUpUser?.message === "User already exists") {
+          setErrorData({
+            ...errors,
+            apiError: "User already exists. Please login...",
+          });
+          triggerErrorReset();
+          return;
+        }
+
+        return handleSuccess(username, "signup");
+      }
+    } catch (err) {
+      setErrorData({
+        ...errors,
+        apiError: "Something went wrong. Try again.",
+      });
+      triggerErrorReset();
+    }
+  };
+
+  const handleSuccess = (username, type) => {
+    const userData = `${username}:${type}`;
+    const encoded = btoa(userData);
+
+    localStorage.setItem("userData", encoded);
+
+    props.setUserDetails({ username, type });
+    setUser({ username, type });
+
+    navigate("/products");
+  };
+
+  const resetErrorData = () => {
+    setErrorData({
+      usernameError: "",
+      emailError: "",
+      passwordError: "",
+      confirmPasswordError: "",
+      apiError: "",
+    });
+  };
+
+  const resetUser = () => {
+    setFormData({
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+  };
 
   const getTabClasses = (tab) => {
     const base = "w-1/2 py-3 text-center";
@@ -79,19 +193,23 @@ const LoginSignUpModal = (props) => {
     }`;
   };
 
+  useEffect(() => {
+    return () => {
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="LoginSignUpModal">
       <div className="LoginSignUpModal-colose-container">
-        <span
-          className="LoginSignUpModal-close"
-          onClick={handleLoginClose}
-        >
+        <span className="LoginSignUpModal-close" onClick={handleLoginClose}>
           &times;
         </span>
       </div>
 
       <div className="LoginSignUpModal-content">
-        {/* Tabs */}
         <div className="LoginSignUpModal-tabs">
           <button
             onClick={() => handleTabChange("login")}
@@ -108,7 +226,6 @@ const LoginSignUpModal = (props) => {
           </button>
         </div>
 
-        {/* Form */}
         <div className="LoginSignUpModal-form">
           <input
             type="text"
@@ -119,6 +236,26 @@ const LoginSignUpModal = (props) => {
             className="LoginSignUpModal-input"
           />
 
+          {errorData.usernameError !== "" && (
+            <span className="text-red-600">{errorData.usernameError}</span>
+          )}
+
+          {activeTab === "signup" && (
+            <>
+              <input
+                type="text"
+                name="email"
+                placeholder="Type your email"
+                value={formData.email}
+                onChange={handleChange}
+                className="LoginSignUpModal-input"
+              />
+              {errorData.emailError !== "" && (
+                <span className="text-red-600">{errorData.emailError}</span>
+              )}
+            </>
+          )}
+
           <input
             type="password"
             name="password"
@@ -128,21 +265,33 @@ const LoginSignUpModal = (props) => {
             className="LoginSignUpModal-input"
           />
 
-          {activeTab === "signup" && (
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className="LoginSignUpModal-input"
-            />
+          {errorData.passwordError !== "" && (
+            <span className="text-red-600">{errorData.passwordError}</span>
           )}
 
-          <button
-            className="LoginSignUpModal-button"
-            onClick={handleSubmit}
-          >
+          {activeTab === "signup" && (
+            <>
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="LoginSignUpModal-input"
+              />
+              {errorData.confirmPasswordError !== "" && (
+                <span className="text-red-600">
+                  {errorData.confirmPasswordError}
+                </span>
+              )}
+            </>
+          )}
+
+          {errorData.apiError !== "" && (
+            <span className="text-red-600">{errorData.apiError}</span>
+          )}
+
+          <button className="LoginSignUpModal-button" onClick={handleSubmit}>
             {activeTab === "login" ? "Login" : "Sign Up"}
           </button>
         </div>

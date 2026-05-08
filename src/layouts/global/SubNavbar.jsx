@@ -1,33 +1,23 @@
 import Dropdown from "../global/Dropdown";
 
-const SubNavbar = ({selectedSortBy, setSelectedSortBy}) => {
-
+const SubNavbar = ({
+  selectedSortBy,
+  setSelectedSortBy,
+  onCreateClick,
+  onMyProductsClick,
+}) => {
   return (
     <nav className="subNavbar">
       <div className="subNavbar-left-section">
-        {/* View-Mode */}
-        <div className="viewMode">
-          <input type="button" className="bg-transparent border-none" value="Grid" />
-          <input type="button" className="bg-transparent border-none" value="List" />
-        </div>
-
-        {/* Text Size  */}
-
-        <div class="textSize">
-          <span>Text size</span>
-          <label>
-            <input type="radio" className="w-4 h-4" name="textSize" value="S" />S
-          </label>
-          <label>
-            <input type="radio" className="w-4 h-4" name="textSize" value="M" />M
-          </label>
-          <label>
-            <input type="radio" className="w-4 h-4" name="textSize" value="L" />L
-          </label>
+        <div className="flex items-center gap-3">
+          <button className="newProduct" onClick={onCreateClick}>
+            + Create New Product
+          </button>
+          <button className="myProduct" onClick={onMyProductsClick}>
+            My Products
+          </button>
         </div>
       </div>
-
-      {/* Sort By */}
 
       <div className="sortBy">
         <Dropdown

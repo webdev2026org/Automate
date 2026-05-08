@@ -1,10 +1,6 @@
 import { useState } from "react";
 
-const StarRating = ({
-  rating = 0,
-  isInteractive = false,
-  onRate,
-}) => {
+const StarRating = ({ rating = 0, isInteractive = false, onRate }) => {
   const [hoverValue, setHoverValue] = useState(null);
 
   const percentage = ((hoverValue ?? rating) / 5) * 100;
@@ -16,18 +12,12 @@ const StarRating = ({
 
   return (
     <div className={`star-rating ${isInteractive ? "interactive" : ""}`}>
-      {/* Background */}
       <div className="star-bg">★★★★★</div>
 
-      {/* Fill */}
-      <div
-        className="star-fill"
-        style={{ width: `${percentage}%` }}
-      >
+      <div className="star-fill" style={{ width: `${percentage}%` }}>
         ★★★★★
       </div>
 
-      {/* Interactive Layer */}
       {isInteractive && (
         <div className="star-overlay">
           {[1, 2, 3, 4, 5].map((star) => (
