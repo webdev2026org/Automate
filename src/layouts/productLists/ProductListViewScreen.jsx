@@ -15,7 +15,6 @@ import "../../styles/pagination.css";
 
 const ProductListViewScreen = () => {
   const { user } = useAuth();
-
   const [payload, setPayload] = useState({
     category: [],
     brand: [],
@@ -39,19 +38,13 @@ const ProductListViewScreen = () => {
     setIsModalOpen(true);
   };
 
-  console.log("cardData:", cardData);
   const handleEditClick = (productId) => {
     const product = cardData.find((item) => item._id === productId);
-    console.log("product found:", product);
-
     setSelectedProduct(product);
     setModalMode("edit");
     setIsModalOpen(true);
   };
 
-  console.log("user:", user?.username);
-  console.log("product userId:", cardData[0]?.userId);
-  console.log("full user object:", user);
   const handleAddProduct = async (newProduct) => {
     try {
       const created = await apiService.post("create-product", {
@@ -69,8 +62,7 @@ const ProductListViewScreen = () => {
         pathParams: { id: productId },
         body: updatedData,
       });
-      console.log("productId:", productId);
-      console.log("updated:", updated);
+
       setCardData((prev) =>
         prev.map((item) => (item._id === productId ? updated : item)),
       );
@@ -96,9 +88,9 @@ const ProductListViewScreen = () => {
 
   const handleLimitChange = (newLimit) => {
     setLimit(newLimit);
-    setCurrentPage(1); // important
+    setCurrentPage(1);
   };
-  // ✅ Reset page when filters/search/sort change
+
   useEffect(() => {
     setCurrentPage(1);
   }, [payload, selectedSortBy, debouncedValue]);
@@ -120,15 +112,11 @@ const ProductListViewScreen = () => {
         },
       });
 
-      console.log("Api Called : ", productData);
-
       setCardData(productData.data);
       setTotalPages(productData.pages);
     } catch (error) {
       console.error("Fetch Error :", error);
     }
-
-    console.log("payload is", payload);
   };
 
   useEffect(() => {

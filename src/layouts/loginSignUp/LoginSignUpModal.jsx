@@ -34,7 +34,6 @@ const LoginSignUpModal = (props) => {
     props.onLoginClose();
   };
 
-  // 🔹 handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -46,7 +45,7 @@ const LoginSignUpModal = (props) => {
 
   const triggerErrorReset = () => {
     if (errorTimeoutRef.current) {
-      clearTimeout(errorTimeoutRef.current); // ✅ prevent stacking
+      clearTimeout(errorTimeoutRef.current);
     }
 
     errorTimeoutRef.current = setTimeout(() => {
@@ -65,9 +64,6 @@ const LoginSignUpModal = (props) => {
       apiError: "",
     };
 
-    // ======================
-    // 🔥 1. VALIDATION
-    // ======================
     if (!inValidate("username", username)) {
       errors.usernameError = "Invalid username";
     }
@@ -86,20 +82,15 @@ const LoginSignUpModal = (props) => {
       }
     }
 
-    // 🚨 STOP if validation fails
     const hasValidationError = Object.values(errors).some(Boolean);
 
     if (hasValidationError) {
       setErrorData(errors);
-      triggerErrorReset(); // ✅ controlled timeout
+      triggerErrorReset();
       return;
     }
 
     try {
-      // ======================
-      // 🔐 LOGIN FLOW
-      // ======================
-
       if (activeTab === "login") {
         const users = await apiService.post("login-user-data", {
           body: {
@@ -107,7 +98,6 @@ const LoginSignUpModal = (props) => {
             password: password,
           },
         });
-        console.log("userdata:", users);
 
         if (users?.message === "User not found") {
           setErrorData({
@@ -130,9 +120,6 @@ const LoginSignUpModal = (props) => {
         return handleSuccess(username, "login");
       }
 
-      // ======================
-      // 🆕 SIGNUP FLOW
-      // ======================
       if (activeTab === "signup") {
         const signUpUser = await apiService.post("signup-user-data", {
           body: { username, email, password },
@@ -158,7 +145,7 @@ const LoginSignUpModal = (props) => {
   };
 
   const handleSuccess = (username, type) => {
-    const userData = `${username}:${type}`; // ❗ no password
+    const userData = `${username}:${type}`;
     const encoded = btoa(userData);
 
     localStorage.setItem("userData", encoded);
@@ -223,7 +210,6 @@ const LoginSignUpModal = (props) => {
       </div>
 
       <div className="LoginSignUpModal-content">
-        {/* Tabs */}
         <div className="LoginSignUpModal-tabs">
           <button
             onClick={() => handleTabChange("login")}
@@ -240,7 +226,6 @@ const LoginSignUpModal = (props) => {
           </button>
         </div>
 
-        {/* Form */}
         <div className="LoginSignUpModal-form">
           <input
             type="text"

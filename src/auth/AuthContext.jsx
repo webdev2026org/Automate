@@ -6,7 +6,7 @@ const loadUser = () => {
   try {
     const raw = localStorage.getItem("userData");
     if (!raw) return null;
-    const [username, type] = atob(raw).split(":"); // ✅ decode base64
+    const [username, type] = atob(raw).split(":");
     return { username, type };
   } catch {
     return null;
@@ -16,7 +16,6 @@ const loadUser = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUserState] = useState(loadUser);
 
-  // Keep localStorage in sync whenever user changes
   const setUser = (newUser) => {
     if (newUser === null) {
       localStorage.removeItem("userData");
@@ -24,7 +23,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem(
         "userData",
         btoa(`${newUser.username}:${newUser.type}`),
-      ); // ✅ encode base64
+      );
     }
     setUserState(newUser);
   };
@@ -33,7 +32,7 @@ export const AuthProvider = ({ children }) => {
     const handleStorageChange = (e) => {
       if (e.key === "userData") {
         try {
-          const [username, type] = atob(e.newValue).split(":"); // ✅ decode base64
+          const [username, type] = atob(e.newValue).split(":");
           setUserState(e.newValue ? { username, type } : null);
         } catch {
           setUserState(null);

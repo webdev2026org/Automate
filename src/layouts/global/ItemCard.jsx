@@ -57,12 +57,11 @@ const ItemCard = ({
 
         <div className="item-card__meta">
           <span className="item-card__stock">{stockText}</span>
-          {/* <span className="item-card__rating">{rating}</span> */}
-          {/* Updated Rating */}
+
           <div className="item-card__rating">
             <StarRating
               rating={Number(rating)}
-              isInteractive={false} // change to true later
+              isInteractive={false}
               onRate={(value) => onRate && onRate(value, _id)}
             />
             <span className="text-sm text-gray-600">({rating})</span>

@@ -5,5 +5,4 @@ export const endpoints = {
   "create-product": "/products",
   "update-product": "/products/:id",
   "delete-product": "/products/:id",
-  // add other logical names -> paths here
 };

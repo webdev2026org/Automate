@@ -68,7 +68,6 @@
   @apply bg-white text-slate-900 border border-slate-200 hover:bg-slate-50;
 }
 
-/* ✅ Hover overlay */
 .item-card__overlay {
   @apply absolute inset-0 bg-black/40 flex items-center justify-center gap-3
          opacity-0 transition-opacity duration-200;
