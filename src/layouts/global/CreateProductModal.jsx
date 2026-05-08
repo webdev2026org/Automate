@@ -1,4 +1,3 @@
-// CreateProductModal.jsx
 import { useState, useEffect } from "react";
 import Dropdown from "../global/Dropdown";
 import "../../styles/create-product-modal.css";
@@ -25,7 +24,6 @@ const CreateProductModal = ({
 }) => {
   const [formData, setFormData] = useState(EMPTY_FORM);
 
-  // ✅ Prefill form when editing, reset when creating
   useEffect(() => {
     if (mode === "edit" && initialData) {
       setFormData(initialData);
@@ -46,10 +44,7 @@ const CreateProductModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("MODE:", mode);
-    console.log("initialData:", initialData);
-    console.log("initialData._id:", initialData?._id);
-    console.log("formData:", formData);
+
     if (mode === "edit") {
       await onEditProduct(initialData._id, formData);
     } else {
@@ -61,7 +56,6 @@ const CreateProductModal = ({
   return (
     <div className="cpm-overlay">
       <div className="cpm-wrapper">
-        {/* Close button — floating above modal like LoginSignUpModal */}
         <div className="cpm-close-container">
           <span className="cpm-close" onClick={onClose}>
             &times;
@@ -69,16 +63,13 @@ const CreateProductModal = ({
         </div>
 
         <div className="cpm-box">
-          {/* Header */}
           <div className="cpm-header">
             <h2 className="cpm-title">
               {mode === "edit" ? "Edit Product" : "Create New Product"}
             </h2>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="cpm-form">
-            {/* Title + Subtitle */}
             <div className="cpm-row">
               <div className="cpm-field">
                 <label>Title *</label>
@@ -103,7 +94,6 @@ const CreateProductModal = ({
               </div>
             </div>
 
-            {/* Brand + Category */}
             <div className="cpm-row">
               <div className="cpm-field">
                 <label>Brand *</label>
@@ -129,7 +119,6 @@ const CreateProductModal = ({
               </div>
             </div>
 
-            {/* Price + Rating */}
             <div className="cpm-row">
               <div className="cpm-field">
                 <label>Price ($) *</label>
@@ -160,7 +149,6 @@ const CreateProductModal = ({
               </div>
             </div>
 
-            {/* Stock Status — reusing Dropdown */}
             <div className="cpm-field">
               <label>Stock Status</label>
               <Dropdown
@@ -173,7 +161,6 @@ const CreateProductModal = ({
               />
             </div>
 
-            {/* Image URL */}
             <div className="cpm-field">
               <label>Image URL</label>
               <input
@@ -185,7 +172,6 @@ const CreateProductModal = ({
               />
             </div>
 
-            {/* Alt Text */}
             <div className="cpm-field">
               <label>Image Alt Text</label>
               <input
@@ -197,7 +183,6 @@ const CreateProductModal = ({
               />
             </div>
 
-            {/* Actions */}
             <div className="cpm-actions">
               <button
                 type="button"

@@ -5,7 +5,6 @@ const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 const buildUrl = (path, params, pathParams) => {
   let resolvedPath = path;
 
-  // ✅ Replace path params like :id
   if (pathParams) {
     Object.keys(pathParams).forEach((k) => {
       resolvedPath = resolvedPath.replace(`:${k}`, pathParams[k]);

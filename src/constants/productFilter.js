@@ -1,9 +1,3 @@
-// export const FILTER_DATA = {
-//   Categories: ["Headphones", "Speakers", "Accessories"],
-//   Brands: ["Auralite", "Boreal Sound", "Crescendo"],
-//   Ratings: ["4 stars & up", "3 stars & up", "2 stars & up"],
-// };
-
 export const FILTER_DATA = {
   Categories: ["Headphones", "Speakers", "Accessories"],
 
@@ -17,12 +11,8 @@ export const FILTER_DATA = {
     "Noise",
     "Auralite",
     "Boreal Sound",
-    "Crescendo"
+    "Crescendo",
   ],
 
-  Ratings: [
-    "4 stars & up",
-    "3 stars & up",
-    "2 stars & up"
-  ],
+  Ratings: ["4 stars & up", "3 stars & up", "2 stars & up"],
 };

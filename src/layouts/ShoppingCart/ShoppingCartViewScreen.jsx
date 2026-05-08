@@ -1,13 +1,12 @@
-import Navbar from "../global/Navbar"
-import Footer from "../global/Footer"
+import Navbar from "../global/Navbar";
+import Footer from "../global/Footer";
 import { useState } from "react";
 
 const ShoppingCartViewScreen = () => {
-
-    const [breadcrumbItems, setBreadcrumbItems] = useState([
-        { label: 'Shop', path: '/products' },
-        { label: 'Cart & Checkout', path: '/cart' }
-    ]);
+  const [breadcrumbItems, setBreadcrumbItems] = useState([
+    { label: "Shop", path: "/products" },
+    { label: "Cart & Checkout", path: "/cart" },
+  ]);
   return (
     <div className="app-container flex flex-col h-full">
       <div className="nav-container flex-1">
@@ -26,7 +25,7 @@ const ShoppingCartViewScreen = () => {
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default ShoppingCartViewScreen
+export default ShoppingCartViewScreen;

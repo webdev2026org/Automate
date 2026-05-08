@@ -11,7 +11,6 @@ const Dropdown = ({
   const [selected, setSelected] = useState(defaultValue || options[0]);
   const dropdownRef = useRef(null);
 
-  // close on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!dropdownRef.current?.contains(e.target)) {
@@ -32,7 +31,6 @@ const Dropdown = ({
     <div className="relative inline-block" ref={dropdownRef}>
       {label && <span className="mr-2">{label}</span>}
 
-      {/* Trigger */}
       <div
         className="inline-flex items-center justify-between border px-3 py-1  rounded-md cursor-pointer bg-white min-w-[140px]"
         onClick={() => setIsOpen(!isOpen)}
@@ -42,7 +40,6 @@ const Dropdown = ({
         <span className="ml-2">▾</span>
       </div>
 
-      {/* Options */}
       {isOpen && (
         <div className="absolute mt-1 w-full border bg-white shadow-md z-10 rounded-md overflow-hidden">
           {options.map((option) => (
