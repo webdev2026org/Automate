@@ -1,6 +1,7 @@
 import "../../styles/itemcard.css";
 import "../../styles/starrating.css";
 import StarRating from "./StarRating";
+import { usePermission } from "../../auth/usePermission";
 
 const ItemCard = ({
   _id,
@@ -15,31 +16,37 @@ const ItemCard = ({
   note,
   onRate,
   brand,
-  isOwner,
   onEdit,
   onDelete,
 }) => {
+  const canEdit = usePermission("product:update");
+  const canDelete = usePermission("product:delete");
+
   return (
     <article className="item-card">
       <div className="item-card__image">
         <img src={image} alt={alt} />
 
-        {isOwner && (
+        {(canEdit || canDelete) && (
           <div className="item-card__overlay">
-            <button
-              type="button"
-              className="item-card__overlay-btn item-card__overlay-btn--edit"
-              onClick={() => onEdit && onEdit(_id)}
-            >
-              ✏️ Edit
-            </button>
-            <button
-              type="button"
-              className="item-card__overlay-btn item-card__overlay-btn--delete"
-              onClick={() => onDelete && onDelete(_id)}
-            >
-              🗑️ Delete
-            </button>
+            {canEdit && (
+              <button
+                type="button"
+                className="item-card__overlay-btn item-card__overlay-btn--edit"
+                onClick={() => onEdit && onEdit(_id)}
+              >
+                ✏️ Edit
+              </button>
+            )}
+            {canDelete && (
+              <button
+                type="button"
+                className="item-card__overlay-btn item-card__overlay-btn--delete"
+                onClick={() => onDelete && onDelete(_id)}
+              >
+                🗑️ Delete
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -50,7 +57,7 @@ const ItemCard = ({
             <p className="item-card__category">{category}</p>
             <h2 className="item-card__title">{title}</h2>
           </div>
-          <span className="item-card__price">${price}</span>
+          <span className="item-card__price">₹{price}</span>
         </div>
 
         <p className="item-card__subtitle">{subtitle}</p>

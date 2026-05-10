@@ -117,7 +117,7 @@ const LoginSignUpModal = (props) => {
           return;
         }
 
-        return handleSuccess(username, "login");
+        return handleSuccess(users, "login");
       }
 
       if (activeTab === "signup") {
@@ -133,7 +133,7 @@ const LoginSignUpModal = (props) => {
           return;
         }
 
-        return handleSuccess(username, "signup");
+        return handleSuccess(signUpUser, "signup");
       }
     } catch (err) {
       setErrorData({
@@ -144,15 +144,20 @@ const LoginSignUpModal = (props) => {
     }
   };
 
-  const handleSuccess = (username, type) => {
-    const userData = `${username}:${type}`;
-    const encoded = btoa(userData);
-
-    localStorage.setItem("userData", encoded);
-
-    props.setUserDetails({ username, type });
-    setUser({ username, type });
-
+  const handleSuccess = (data, type) => {
+    if (type === "login") {
+      const payload = JSON.parse(atob(data.token.split(".")[1]));
+      localStorage.setItem("token", data.token);
+      setUser({
+        username: payload.username,
+        role: payload.role,
+        token: data.token,
+      });
+    } else {
+      // After signup, redirect to login — no token yet
+      setActiveTab("login");
+      return;
+    }
     navigate("/products");
   };
 

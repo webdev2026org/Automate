@@ -6,7 +6,7 @@ const ProductFilter = ({ setPayload }) => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [rating, setRating] = useState("");
-  const [price, setPrice] = useState([25, 999]);
+  const [price, setPrice] = useState([199, 80000]);
   const [isApplied, setIsApplied] = useState(false);
 
   const toggleSelection = (list, setList, item) => {
@@ -31,13 +31,13 @@ const ProductFilter = ({ setPayload }) => {
     setSelectedCategories([]);
     setSelectedBrands([]);
     setRating("");
-    setPrice([25, 999]);
+    setPrice([199, 80000]);
     setIsApplied(false);
     setPayload({
       category: [],
       brand: [],
       rating: "",
-      price: [25, 999],
+      price: [199, 80000],
     });
   };
 
@@ -69,15 +69,15 @@ const ProductFilter = ({ setPayload }) => {
       <div className="filter-section">
         <h3>Price</h3>
         <div className="flex items-center justify-between text-xs mb-2">
-          <span>${price[0]}</span>
-          <span>${price[1]}</span>
+          <span>₹{price[0]}</span>
+          <span>₹{price[1]}</span>
         </div>
         <input
           type="range"
-          min="25"
-          max="999"
+          min="199"
+          max="80000"
           value={price[1]}
-          onChange={(e) => setPrice([25, Number(e.target.value)])}
+          onChange={(e) => setPrice([199, Number(e.target.value)])}
           className="w-full"
         />
       </div>
