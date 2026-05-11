@@ -26,6 +26,34 @@ export const AuthProvider = ({ children }) => {
     setUserState(newUser);
   };
 
+  // Sync logout/login across browser tabs
+
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key !== "token") return;
+
+      if (!e.newValue) {
+        // Token was removed in another tab (logout)
+        setUserState(null);
+        return;
+      }
+
+      try {
+        const payload = JSON.parse(atob(e.newValue.split(".")[1]));
+        setUserState({
+          username: payload.username,
+          role: payload.role,
+          token: e.newValue,
+        });
+      } catch {
+        setUserState(null);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}

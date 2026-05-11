@@ -147,14 +147,12 @@ const LoginSignUpModal = (props) => {
   const handleSuccess = (data, type) => {
     if (type === "login") {
       const payload = JSON.parse(atob(data.token.split(".")[1]));
-      localStorage.setItem("token", data.token);
       setUser({
         username: payload.username,
         role: payload.role,
         token: data.token,
       });
     } else {
-      // After signup, redirect to login — no token yet
       setActiveTab("login");
       return;
     }

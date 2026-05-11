@@ -48,5 +48,6 @@ export default {
   get: (key, opts) => request("GET", key, opts),
   post: (key, opts) => request("POST", key, opts),
   put: (key, opts) => request("PUT", key, opts),
+  patch: (key, opts) => request("PATCH",  key, opts),
   del: (key, opts) => request("DELETE", key, opts),
 };
