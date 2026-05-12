@@ -23,11 +23,15 @@ const buildUrl = (path, params, pathParams) => {
 const request = async (method, endpointKey, { params, body, headers, pathParams } = {}) => {
   const path = endpoints[endpointKey];
   if (!path) throw new Error(`Unknown endpoint key: ${endpointKey}`);
-
+ 
   const url = buildUrl(path, params, pathParams);
+    // Auto-attach token if present
+  const token = localStorage.getItem("token");
+  const authHeader = token ? { Authorization: `Bearer ${token}` } : {};
+
   const opts = {
     method,
-    headers: { "Content-Type": "application/json", ...(headers || {}) },
+    headers: { "Content-Type": "application/json", ...authHeader, ...(headers || {}) },
   };
   if (body) opts.body = JSON.stringify(body);
 
@@ -44,5 +48,6 @@ export default {
   get: (key, opts) => request("GET", key, opts),
   post: (key, opts) => request("POST", key, opts),
   put: (key, opts) => request("PUT", key, opts),
+  patch: (key, opts) => request("PATCH",  key, opts),
   del: (key, opts) => request("DELETE", key, opts),
 };

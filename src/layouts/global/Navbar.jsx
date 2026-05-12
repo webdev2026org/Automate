@@ -21,8 +21,7 @@ const Navbar = (props) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userData");
-    setUser(null);
+    setUser(null); // setUser already calls localStorage.removeItem("token")
     setShowUserModal(false);
     navigate("/");
   };

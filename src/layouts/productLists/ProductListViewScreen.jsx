@@ -10,16 +10,19 @@ import Pagination from "../global/Pagination";
 import LimitSelector from "../global/LimitSelector";
 import CreateProductModal from "../global/CreateProductModal";
 import { useAuth } from "../../auth/AuthContext";
+import { usePermission } from "../../auth/usePermission";
 import "../../styles/product-list-view-screen.css";
 import "../../styles/pagination.css";
 
 const ProductListViewScreen = () => {
   const { user } = useAuth();
+  const canCreate = usePermission("product:create");
+
   const [payload, setPayload] = useState({
     category: [],
     brand: [],
     rating: "",
-    price: [25, 999],
+    price: [199, 80000],
   });
   const [searchByValue, setSearchByValue] = useState("");
   const [selectedSortBy, setSelectedSortBy] = useState("Popularity");
@@ -33,6 +36,7 @@ const ProductListViewScreen = () => {
   const debouncedValue = useDebounce(searchByValue, 500);
 
   const handleCreateClick = () => {
+    if (!canCreate) return;
     setSelectedProduct(null);
     setModalMode("create");
     setIsModalOpen(true);
@@ -138,7 +142,7 @@ const ProductListViewScreen = () => {
         <SubNavbar
           selectedSortBy={selectedSortBy}
           setSelectedSortBy={setSelectedSortBy}
-          onCreateClick={handleCreateClick}
+          onCreateClick={canCreate ? handleCreateClick : null}
         />
 
         <main className="flex items-stretch px-6 py-8 gap-6">
@@ -155,7 +159,6 @@ const ProductListViewScreen = () => {
                   onRate={handleRating}
                   onEdit={handleEditClick}
                   onDelete={handleDeleteProduct}
-                  isOwner={true}
                 />
               ))}
             </div>

@@ -10,9 +10,11 @@ const SubNavbar = ({
     <nav className="subNavbar">
       <div className="subNavbar-left-section">
         <div className="flex items-center gap-3">
-          <button className="newProduct" onClick={onCreateClick}>
-            + Create New Product
-          </button>
+          {onCreateClick && (
+            <button className="newProduct" onClick={onCreateClick}>
+              + Create New Product
+            </button>
+          )}
           <button className="myProduct" onClick={onMyProductsClick}>
             My Products
           </button>
