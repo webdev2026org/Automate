@@ -16,7 +16,7 @@ const loadUser = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUserState] = useState(loadUser);
-
+  console.log("user is:", user);
   const setUser = (newUser) => {
     if (newUser === null) {
       localStorage.removeItem("token");
@@ -30,9 +30,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const handleStorageChange = (e) => {
-      if (e.key !== "token") return;
-
-      if (!e.newValue) {
+      
+      if (e.key !== "token" || !e.newValue) {
         // Token was removed in another tab (logout)
         setUserState(null);
         return;
@@ -51,6 +50,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     window.addEventListener("storage", handleStorageChange);
+  
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
